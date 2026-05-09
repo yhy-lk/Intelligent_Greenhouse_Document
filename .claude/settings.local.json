@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export HTTP_PROXY=http://127.0.0.1:7890)",
+      "Bash(export HTTPS_PROXY=http://127.0.0.1:7890)",
+      "Bash(npx repomix *)",
+      "Bash(cat \"D:/Tools/NodeGlobal/node_modules/@mermaid-js/mermaid-cli/package.json\" 2>/dev/null | grep -A5 '\"bin\"')",
+      "Read(//d/Tools/NodeGlobal/node_modules/@mermaid-js/mermaid-cli/**)",
+      "Read(//d/Tools/NodeGlobal/**)",
+      "Bash(\"D:/Tools/NodeGlobal/mmdc\" -i Docs/images/architecture.mmd -o Docs/images/architecture.png -b white -w 1600)",
+      "Bash(pandoc Docs/chapters/Chapter3_Architecture.md -o Docs/chapters/Chapter3_Architecture.docx)",
+      "Bash(pandoc Docs/chapters/Chapter3_Architecture.md -o Docs/chapters/Chapter3_Architecture.docx --resource-path=Docs)",
+      "Bash(pandoc Chapter3_Architecture.md -o Chapter3_Architecture.docx)",
+      "Bash(\"D:/Tools/NodeGlobal/mmdc\" -i Docs/images/architecture.mmd -o Docs/images/architecture.svg)",
+      "Bash(python3 -c ' *)",
+      "Bash(python -c ' *)",
+      "Bash(mmdc -i Docs/images/stm32_data_acquisition_flow.mmd -o Docs/images/stm32_data_acquisition_flow.png -s 4 -b white)",
+      "Bash(mmdc --version)",
+      "Bash(pandoc --version)",
+      "Bash(mmdc -i \"e:/school/University/Graduation_Project/Intelligent_Greenhouse/Document/Docs/chapters/stm32_data_collect_flow.mmd\" -o \"e:/school/University/Graduation_Project/Intelligent_Greenhouse/Document/Docs/chapters/images/stm32_data_collect_flow.png\" -s 4 -t base)",
+      "Bash(mmdc -i \"e:/school/University/Graduation_Project/Intelligent_Greenhouse/Document/Docs/chapters/stm32_data_collect_flow.mmd\" -o \"e:/school/University/Graduation_Project/Intelligent_Greenhouse/Document/Docs/chapters/images/stm32_data_collect_flow.png\" -s 4)",
+      "Bash(pandoc Section_3.1.md -o Section_3.1.docx)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

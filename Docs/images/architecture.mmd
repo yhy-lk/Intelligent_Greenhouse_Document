@@ -1,0 +1,108 @@
+graph TB
+    subgraph Cloud["☁ 云端服务"]
+        DS["DeepSeek 大模型 API"]
+        BD["百度语音服务<br/>(ASR / TTS)"]
+    end
+
+    subgraph ESP32["ESP32-S3 交互层"]
+        direction TB
+        LVGL["LVGL 图形界面<br/>8 页面 GUI"]
+        Voice["语音助手服务<br/>VoiceAssistant"]
+        DeepSeek["DeepSeek 客户端<br/>温室 AI 大脑"]
+        WiFi["WiFi 网络服务<br/>HTTP Client"]
+        SensorState["传感器状态管理<br/>SensorState"]
+        CANApp["CAN 应用层<br/>can_app"]
+        CANService["CAN 协议服务<br/>can_protocol / can_network_service"]
+    end
+
+    subgraph STM32["STM32 控制层 (Rust / Embassy)"]
+        direction TB
+        Dispatcher["任务调度器<br/>dispatcher"]
+        SHT30["SHT30 温湿度<br/>I2C 驱动"]
+        BH1750["BH1750 光照<br/>I2C 驱动"]
+        Soil["土壤湿度<br/>ADC 采集"]
+        PID["PID 控制器<br/>增量式 PID"]
+        WaterPump["水泵控制"]
+        Fan["通风风扇"]
+        Servo["MG995 舵机"]
+        WS2812["WS2812 灯带"]
+        BoardLED["板载 LED"]
+        CANProto["CAN 协议栈<br/>can_proto.rs"]
+        CANTX["CAN TX 任务"]
+        CANRX["CAN RX 任务"]
+    end
+
+    subgraph Sensors["传感器"]
+        SHT30H["SHT30<br/>温湿度"]
+        BH1750H["BH1750<br/>光照"]
+        SoilH["土壤湿度<br/>传感器"]
+    end
+
+    subgraph Actuators["执行器"]
+        WP["水泵"]
+        VF["通风风扇"]
+        MG["MG995 舵机"]
+        WS["WS2812 RGB 灯带"]
+    end
+
+    subgraph Display["显示与交互"]
+        Screen["触摸显示屏"]
+        MIC["INMP441 麦克风"]
+        SPK["MAX98357A 扬声器"]
+    end
+
+    %% Cloud connections
+    DS <-->|HTTP API| DeepSeek
+    BD <-->|HTTP API| Voice
+
+    %% ESP32 internal
+    LVGL <--> SensorState
+    LVGL <--> CANApp
+    Voice --> DeepSeek
+    WiFi --> DeepSeek
+    WiFi --> Voice
+    CANApp --> CANService
+    SensorState --> CANService
+
+    %% CAN Bus
+    CANService <-->|"CAN Bus (1 Mbps)"| CANProto
+
+    %% STM32 internal
+    CANProto --> CANTX
+    CANRX --> CANProto
+    CANRX --> Dispatcher
+    Dispatcher --> SHT30
+    Dispatcher --> BH1750
+    Dispatcher --> Soil
+    SHT30 --> PID
+    BH1750 --> PID
+    PID --> WaterPump
+    PID --> Fan
+    Dispatcher --> Servo
+    Dispatcher --> WS2812
+    Dispatcher --> BoardLED
+
+    %% Hardware connections
+    SHT30H -->|I2C| SHT30
+    BH1750H -->|I2C| BH1750
+    SoilH -->|ADC| Soil
+    WaterPump --> WP
+    Fan --> VF
+    Servo --> MG
+    WS2812 --> WS
+    Screen --> LVGL
+    MIC -->|I2S| Voice
+    Voice -->|I2S| SPK
+
+    %% Styles
+    classDef esp32 fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef stm32 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef cloud fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef sensor fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    classDef actuator fill:#fce4ec,stroke:#c62828,stroke-width:2px
+
+    class LVGL,Voice,DeepSeek,WiFi,SensorState,CANApp,CANService esp32
+    class Dispatcher,SHT30,BH1750,Soil,PID,WaterPump,Fan,Servo,WS2812,BoardLED,CANProto,CANTX,CANRX stm32
+    class DS,BD cloud
+    class SHT30H,BH1750H,SoilH sensor
+    class WP,VF,MG,WS actuator
