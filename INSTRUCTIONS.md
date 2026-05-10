@@ -44,29 +44,31 @@
 
 ### 背景
 
-论文写作需要引用**真实存在的**学术文献、技术文档和标准规范。项目已配置 DuckDuckGo MCP 服务器用于联网搜索，并配置了 Agent Browser MCP 服务器用于浏览器自动化。
+论文写作需要引用**真实存在的**学术文献、技术文档和标准规范。本项目网络环境存在代理（端口 7890），DuckDuckGo 的 MCP 工具和 CLI 均因 SSL 握手失败而不可用。经测试，`WebFetch` 工具可正常访问 Google Scholar、GitHub、技术文档网站等。
 
 ### 行为规范
 
-1. **【首选】使用 MCP 服务器搜索**：通过 `mcp__duckduckgo__duckduckgo_web_search` 工具进行搜索，该工具通过项目 `.mcp.json` 中配置的 DuckDuckGo MCP 服务器提供，已配置代理支持。
-2. **【备选】Bash CLI 搜索**：若 MCP 工具不可用或出现速率限制，可通过 Bash 调用本地 DuckDuckGo CLI 作为降级方案。
-3. **`WebFetch` 工具可用**：当已有明确的 URL 需要抓取网页内容时，可直接使用 `WebFetch` 工具获取页面内容并进行分析。
-4. **【浏览器自动化】Agent Browser MCP**：当需要访问动态网页（JavaScript 渲染）、进行交互操作（登录、搜索、点击）、或截取网页截图时，使用 `mcp__agent-browser__*` 系列工具。该工具提供完整的浏览器控制能力，包括导航、填写表单、点击、截图、获取页面快照等。
+1. **【首选】WebFetch 访问学术搜索引擎**：使用 `WebFetch` 工具直接访问 Google Scholar、CNKI、IEEE Xplore 等学术搜索引擎的 URL，提取论文的书目信息（标题、作者、期刊、年份、DOI）。这是当前环境下最可靠的搜索方式。
+2. **【文献详情】WebFetch 抓取论文页面**：对于搜索结果中的重要文献，再次使用 `WebFetch` 访问论文详情页（如 ScienceDirect、Springer、IOP Science），获取完整的卷号、期号、页码和 DOI。
+3. **【数据手册】WebFetch 抓取芯片厂商官网**：传感器和芯片的数据手册（SHT30、BH1750、ESP32、STM32 等）可通过 `WebFetch` 直接访问厂商官网获取。
+4. **【浏览器自动化】Agent Browser MCP**：当需要访问 JavaScript 渲染的动态页面、进行交互操作、或截取网页截图时，使用 `mcp__agent-browser__*` 系列工具。
 
 ### 操作流程
 
 ```
-# 方式一（首选）：使用 MCP 搜索工具
-# 直接调用 mcp__duckduckgo__duckduckgo_web_search，参数：
-#   query: 搜索关键词
-#   count: 返回结果数量（默认 10）
+# 方式一（首选）：WebFetch 搜索学术论文
+# 访问 Google Scholar 搜索页，提取论文书目信息
+WebFetch(url="https://scholar.google.com/scholar?q=你的关键词&hl=en",
+         prompt="Extract paper titles, authors, venues, years, and DOIs")
 
-# 方式二（备选）：通过 Bash 调用 CLI
-pip install duckduckgo-search    # 首次搜索前执行一次
-ddgs text -k "你的搜索关键词" -m 5
+# 方式二：WebFetch 抓取论文详情页
+# 在搜索结果中找到目标论文后，访问其详情页获取完整引用信息
+WebFetch(url="https://www.sciencedirect.com/science/article/pii/...",
+         prompt="Extract full bibliographic details: authors, title, journal, volume, issue, pages, DOI")
 
-# 方式三：抓取已知 URL 的内容
-# 使用 WebFetch 工具
+# 方式三：WebFetch 获取数据手册
+WebFetch(url="https://sensirion.com/resource/datasheet/sht3x",
+         prompt="Extract key technical specifications")
 
 # 方式四：浏览器自动化（动态页面 / 交互操作 / 截图）
 # 常用工具链：
@@ -88,13 +90,38 @@ ddgs text -k "你的搜索关键词" -m 5
 
 ### 搜索策略建议
 
-| 论文需求 | 推荐搜索关键词示例 |
+| 论文需求 | 推荐 WebFetch URL 模板 |
 |---|---|
-| 技术原理引用 | `"STM32 PID control" site:ieee.org` |
-| 系统架构参考 | `"intelligent greenhouse IoT architecture" site:springer.com` |
-| 芯片/传感器数据手册 | `"SHT30 datasheet" filetype:pdf` |
-| 国内研究现状 | `"智能温室 控制系统" site:cnki.net` |
-| 开源项目参考 | `"ESP32 LVGL greenhouse" site:github.com` |
+| 英文论文搜索 | `https://scholar.google.com/scholar?q=关键词&hl=en` |
+| 中文论文搜索 | `https://scholar.google.com/scholar?q=关键词&hl=zh-CN` |
+| 特定论文详情 | `https://scholar.google.com/scholar?q="论文标题"&hl=en` |
+| 芯片数据手册 | 厂商官网 datasheet 页面 URL |
+| 技术标准文档 | `https://std.samr.gov.cn/` 或标准号直接搜索 |
+
+### 文献筛选标准
+
+搜索结果可能包含大量文献，需要筛选高质量文献用于论文引用。筛选标准如下：
+
+| 筛选维度 | 优先选择 | 谨慎使用 |
+|---|---|---|
+| **被引次数** | 被引次数 > 50 的经典文献 | 被引次数 < 10 的新文献（除非是最新研究） |
+| **发表期刊** | SCI/EI 索引期刊、IEEE/ACM/Springer 等知名出版商 | 非索引期刊、预印本（arXiv） |
+| **发表年份** | 近 5 年文献（体现研究前沿）+ 经典文献（奠定理论基础） | 过于陈旧（> 10 年）且非经典的文献 |
+| **作者机构** | 知名高校、研究机构、企业研究院 | 无法确认机构背景的作者 |
+| **文献类型** | 期刊论文 > 会议论文 > 学位论文 > 技术报告 | 博客、论坛帖子、百科类网站 |
+
+**操作建议**：
+1. 优先选择被引次数排名前 5 的文献
+2. 确保文献覆盖"经典理论"和"最新进展"两个维度
+3. 每个小节引用 3-5 篇文献，避免过度引用单一文献
+4. 中英文文献比例建议：英文 60-70%，中文 30-40%
+
+### 已知不可用的工具（因代理 SSL 问题）
+
+| 工具 | 错误表现 | 替代方案 |
+|---|---|---|
+| `mcp__duckduckgo__duckduckgo_web_search` | VQD 获取失败 | 用 WebFetch 访问 Google Scholar |
+| `ddgs` CLI（Bash） | SSL 握手错误 | 用 WebFetch 访问 Google Scholar |
 
 ---
 
@@ -128,6 +155,40 @@ grep -n "关键词" repomix-output.xml
 - 若需要精简或改写代码用于论文展示，必须基于原始代码进行，不得虚构函数名、参数或逻辑。
 - 引用代码时应标注源文件路径，如 `Src/Stm32_Control/crates/bsw/src/pid.rs`。
 
+### 代码转化为学术语言的示例
+
+论文中不应直接堆砌代码，而应将代码逻辑转化为学术语言描述。以下是转化示例：
+
+**原始代码**（`pid.rs`）：
+```rust
+pub fn compute(&mut self, setpoint: f32, measured: f32, dt: f32, kp: f32, ki: f32, kd: f32) -> f32 {
+    let error = setpoint - measured;
+    self.integral = (self.integral + error * dt).clamp(-self.integral_limit, self.integral_limit);
+    let derivative = if dt > 0.0001 { (error - self.prev_error) / dt } else { 0.0 };
+    let output = (kp * error) + (ki * self.integral) + (kd * derivative);
+    let constrained_output = output.clamp(-self.output_limit, self.output_limit);
+    self.prev_error = error;
+    constrained_output
+}
+```
+
+**学术语言描述**（错误示例）：
+> 系统采用 PID 算法进行温度控制。
+
+**学术语言描述**（正确示例）：
+> 本系统采用离散位置式 PID 控制算法实现通风风扇的转速闭环控制。PID 控制器的输出 $u(k)$ 由比例、积分、微分三项组成，计算公式为：
+>
+> $$u(k) = K_p \cdot e(k) + K_i \cdot \sum_{j=0}^{k} e(j) \cdot \Delta t + K_d \cdot \frac{e(k) - e(k-1)}{\Delta t}$$
+>
+> 其中，$e(k) = r - y(k)$ 为设定值与测量值的偏差，$\Delta t$ 为采样周期。为防止积分饱和，积分项采用限幅处理，限幅值为 $I_{max}$；为防止执行器过载，输出值同样采用限幅处理，限幅值为 $U_{max}$。具体实现中，当采样周期 $\Delta t < 0.0001s$ 时，微分项置零以避免除零错误。
+
+**转化要点**：
+1. **变量命名**：将代码中的变量名（如 `setpoint`、`measured`）转化为学术符号（如 $r$、$y(k)$）
+2. **数学公式**：将计算逻辑转化为数学公式，使用 LaTeX 语法
+3. **物理含义**：解释每个参数的物理意义（如"积分限幅"、"输出限幅"）
+4. **边界条件**：说明代码中的特殊处理（如"当 $\Delta t < 0.0001s$ 时"）
+5. **引用来源**：标注代码来源文件路径
+
 ---
 
 ## 四、准则三：【通用】论文写作质量要求
@@ -135,8 +196,84 @@ grep -n "关键词" repomix-output.xml
 1. **语言风格**：学术论文语体，避免口语化表达。
 2. **术语一致性**：全文统一使用同一术语，首次出现时给出英文全称或缩写。
 3. **逻辑连贯**：章节之间有清晰的逻辑过渡，前后内容不矛盾。
-4. **图表配合**：涉及系统架构、流程、硬件连接时，应建议配合图表说明。
-5. **参考文献格式**：遵循学校要求的参考文献格式（如 GB/T 7714），每条文献必须可溯源。
+4. **图表规范**：涉及系统架构、流程、硬件连接时，应配合图表说明。**每张图表必须有完整的标题**，格式为 `**图 {章节号}-{序号} {图表标题}**`，紧跟在图表引用之后。例如：`**图 4-1 通风风扇位置式 PID 转速闭环控制框图**`。正文中必须有对图表的引用说明（如"如图 4-1 所示"），且引用必须出现在图表之前。
+5. **参考文献格式**：遵循 GB/T 7714-2015 顺序编码制，通过 Pandoc `--citeproc` 自动生成，每条文献必须可溯源。详见下方"准则三·引用规范"。
+
+---
+
+## 四·引用规范：【强制】基于 Pandoc Citeproc 的参考文献系统
+
+### 背景
+
+论文中的引用标记（如 `[1]`、`[2]`）和文末参考文献列表由 Pandoc 的 `--citeproc` 引擎**自动生成**，不需要手动编号。所有文献信息集中在 `Docs/references.bib` 中管理，在 Markdown 正文中通过 `[@key]` 语法引用。
+
+### 文件约定
+
+| 文件 | 路径 | 说明 |
+|---|---|---|
+| 参考文献数据库 | `Docs/references.bib` | BibTeX 格式，所有文献的唯一存储位置 |
+| 引用样式文件 | `Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl` | GB/T 7714-2015 顺序编码制（数字上标） |
+
+### BibTeX 条目类型速查
+
+| 文献类型 | `@type` | 常用字段 |
+|---|---|---|
+| 期刊论文 | `@article` | `author`, `title`, `journal`, `year`, `volume`, `number`, `pages`, `doi` |
+| 会议论文 | `@inproceedings` | `author`, `title`, `booktitle`, `year`, `pages`, `doi` |
+| 专著/教材 | `@book` | `author`, `title`, `edition`, `publisher`, `year`, `address` |
+| 学位论文 | `@phdthesis` / `@mastersthesis` | `author`, `title`, `school`, `year`, `address` |
+| 技术手册/数据手册 | `@manual` | `author`, `title`, `year`, `url` |
+| 网页/在线资源 | `@online` | `author`, `title`, `url`, `year`, `urldate` |
+
+### Markdown 正文中的引用语法
+
+```markdown
+# 单篇引用
+温室温度控制常采用 PID 算法实现闭环调节[@wei2022intelligent]。
+
+# 多篇引用（自动合并为 [1, 2] 或 [1-3]）
+多项研究[@hooshmand2025smart; @huang2024vegetable; @ang2005pid]表明……
+
+# 作者-年份形式（不带方括号，用于叙述性引用）
+Ang 等[@ang2005pid]对 PID 控制进行了系统综述。
+
+# 引用特定页码
+根据控制理论教材[@hu2014automatic, pp. 120-125]，……
+
+# 抑制作者名（仅显示编号）
+温室监控系统已有成熟方案[@ma2025stm32monitor]。
+```
+
+### Pandoc 编译命令
+
+```bash
+# 单章编译（含引用处理）
+pandoc Docs/chapters/Chapter4_STM32控制层软件设计.md \
+  --citeproc \
+  --bibliography=Docs/references.bib \
+  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o Docs/output/Chapter4.docx
+
+# 多章合并编译
+pandoc Docs/chapters/Chapter1_绪论.md Docs/chapters/Chapter2_需求分析.md \
+  --citeproc \
+  --bibliography=Docs/references.bib \
+  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o Docs/output/Thesis_Draft.docx
+```
+
+### 追加新文献的流程
+
+1. 在 `Docs/references.bib` 末尾追加新的 BibTeX 条目，**key 必须全局唯一**，命名规则：`{作者姓小写}{年份}{关键词}`，如 `zhang2020pid`
+2. 在 Markdown 正文中用 `[@key]` 引用
+3. 重新执行 Pandoc 编译，引用编号自动更新
+
+### 注意事项
+
+- **禁止手动编写 `[1]`、`[2]` 编号**：所有编号由 `--citeproc` 自动生成，手动编号会导致冲突
+- **每条文献必须可溯源**：优先填写 `doi` 字段；无 DOI 的文献填写 `url`；中文教材至少填写 `publisher` + `year`
+- **key 命名规范**：全小写，无特殊字符，格式为 `{作者姓}{年份}{关键词}`，如 `hu2014automatic`、`sht30datasheet`
+- **CSL 文件来源**：`china-national-standard-gb-t-7714-2015-numeric.csl` 由 [zepinglee/chinese-std-gb-t-7714-2015-csl](https://github.com/zepinglee/chinese-std-gb-t-7714-2015-csl) 提供，遵循 CC BY-SA 3.0 许可
 
 ---
 
@@ -148,17 +285,64 @@ grep -n "关键词" repomix-output.xml
 
 ### 行为规范
 
-1. **分章输出**：在得到我的写作指令后，请务必调用你的写入工具，将写好的论文内容保存为 `.md` 文件放入专门的目录中（如 `Docs/Chapter1_绪论.md`），不要仅仅在聊天窗口输出长篇大论。
+1. **分章输出**：在得到我的写作指令后，请务必调用你的写入工具，将写好的论文内容保存为 `.md` 文件放入 `Docs/chapters/` 目录中（如 `Docs/chapters/Chapter1_绪论.md`），不要仅仅在聊天窗口输出长篇大论。
 2. **Pandoc 编译**：当我要求将论文导出为 Word 时，请你使用 Bash 终端调用本地的 Pandoc 进行格式转换。
+
+### 文件目录规范
+
+```
+Docs/
+├── chapters/                    # 论文章节 Markdown 源文件
+│   ├── Chapter1_绪论.md
+│   ├── Chapter2_需求分析与总体设计.md
+│   ├── Chapter3_硬件电路设计.md
+│   ├── Chapter4_STM32控制层软件设计.md
+│   ├── Chapter5_ESP32交互层软件设计.md
+│   ├── Chapter6_系统测试与结果分析.md
+│   └── Chapter7_总结与展望.md
+├── images/                      # 所有图表资源
+│   ├── architecture.svg         # 系统架构图
+│   ├── pid_control_strategy.svg # PID 控制策略图
+│   ├── *.mmd                    # Mermaid 源文件（与 .svg 同名）
+│   └── screenshots/             # 浏览器截图、搜索结果截图
+├── csl/                         # 引用样式文件
+│   └── china-national-standard-gb-t-7714-2015-numeric.csl
+├── references.bib               # 参考文献数据库（BibTeX 格式）
+└── output/                      # Pandoc 编译产物（docx 等）
+    └── Thesis_Draft.docx
+```
+
+- **章节文件命名**：`Chapter{N}_{章节标题}.md`，如 `Chapter4_STM32控制层软件设计.md`
+- **图表文件命名**：使用有意义的英文名称，与章节内容对应，如 `pid_fan_loop.svg`
+- **Mermaid 源文件**：`.mmd` 文件与渲染产物（`.svg`）放在同一目录（`Docs/images/`），保持同名
+- **编译产物**：统一输出到 `Docs/output/` 目录，避免与源文件混杂
 
 ### 操作流程
 
 ```bash
-# 当需要将 Markdown 转换为 Word (docx) 时执行：
-pandoc Docs/Chapter1_绪论.md -o Docs/Chapter1_绪论.docx
+# 当需要将 Markdown 转换为 Word (docx) 时执行（含引用处理）：
+pandoc Docs/chapters/Chapter4_STM32控制层软件设计.md \
+  --citeproc \
+  --bibliography=Docs/references.bib \
+  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o Docs/output/Chapter4.docx
 
-# 如果需要合并多个章节，请执行：
-pandoc Docs/Chapter1.md Docs/Chapter2.md -o Docs/Thesis_Draft.docx
+# 如果需要合并多个章节：
+pandoc Docs/chapters/Chapter1_绪论.md Docs/chapters/Chapter2_需求分析与总体设计.md \
+  --citeproc \
+  --bibliography=Docs/references.bib \
+  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o Docs/output/Thesis_Draft.docx
+
+# 【重要】SVG 图片兼容性处理：
+# Pandoc 默认不支持在 docx 中嵌入 SVG。需要先将 SVG 转换为 PNG：
+# 方案一：使用 rsvg-convert（推荐，质量最好）
+rsvg-convert -w 2000 Docs/images/architecture.svg > Docs/images/architecture.png
+# 方案二：使用 Inkscape
+inkscape Docs/images/architecture.svg --export-filename=Docs/images/architecture.png -w 2000
+# 方案三：mmdc 直接生成 PNG（-s 4 为 4 倍分辨率）
+mmdc -i Docs/images/architecture.mmd -o Docs/images/architecture.png -s 4
+# 然后在 Markdown 中引用 PNG 而非 SVG 进行 Pandoc 编译
 ```
 
 ---
@@ -231,6 +415,40 @@ A[处理 Option&lt;f32&gt; 数据] --> B[返回 Result&lt;u8, Error&gt;]
    - 再将具体外设（如 SHT30、BH1750）或子流程（如 PID 计算、CAN 帧组装）拆分为**独立的子流程图**，分别绘制。
 3. **节点文本长度**：单个节点的描述文字不超过 15 个汉字（约 30 字符），过长的描述应拆分到子图中或使用注释。
 
+### 图表设计原则
+
+除了格式规范外，图表设计还应遵循以下原则，确保信息传达的有效性：
+
+**1. 信息密度原则**
+- 每张图表应传达一个核心信息，避免信息过载
+- 节点数量控制在 5-10 个，超过时应拆分为子图
+- 删除不必要的装饰元素（如背景色、阴影、渐变）
+
+**2. 视觉层次原则**
+- 使用线条粗细区分主要流程和次要流程
+- 使用灰度深浅区分不同模块或层次
+- 重要节点可使用边框加粗或填充色突出
+
+**3. 一致性原则**
+- 同一论文中的图表风格保持一致（颜色、字体、布局）
+- 相同类型的节点使用相同的形状和样式
+- 术语和缩写在图表中与正文保持一致
+
+**4. 可读性原则**
+- 字号不小于 10pt（打印后）
+- 节点间距适中，避免过密或过疏
+- 流程方向清晰，避免交叉线条
+
+**图表类型选择指南**：
+
+| 场景 | 推荐图表类型 | 示例 |
+|---|---|---|
+| 系统架构 | `graph LR`（模块架构图） | ESP32 与 STM32 的模块划分 |
+| 数据流 | `flowchart LR`（数据流图） | 传感器数据从采集到显示的流程 |
+| 时序交互 | `sequenceDiagram`（时序图） | I2C 读写 SHT30 的报文交互 |
+| 状态转换 | `stateDiagram-v2`（状态机） | 自动调度器的状态切换逻辑 |
+| 算法流程 | `flowchart TD`（流程图） | PID 控制算法的计算步骤 |
+
 **错误示例（禁止）**：
 ```mermaid
 graph TD
@@ -287,6 +505,31 @@ mmdc -i Docs/flowchart.mmd -o Docs/images/flowchart.png -s 4
 
 > **重要**：SVG 是学术排版的首选格式，可确保图表在任意缩放比例下均保持清晰锐利。PNG 仅作为备选方案，使用时 `-s 4` 参数不可省略。
 
+### 强制规范五：Markdown 中必须插入渲染后的图片，禁止嵌入 Mermaid 源代码
+
+Mermaid 代码块（` ```mermaid `）在 Markdown 预览和 Pandoc 转换为 docx 时**不会被渲染为图片**，只会以源代码形式显示，严重影响论文的可读性和专业性。
+
+【强制】流程如下：
+
+1. 将 Mermaid 图表代码保存为独立的 `.mmd` 源文件（如 `Docs/images/pid_control_strategy.mmd`）。
+2. 使用 `mmdc` 将 `.mmd` 渲染为 `.svg` 矢量图（或 `.png` 位图）。
+3. **在 Markdown 论文中，使用标准图片语法引用渲染产物，禁止保留 ` ```mermaid ` 代码块**：
+
+```markdown
+<!-- ✅ 正确：引用渲染后的 SVG/PNG -->
+**图 4-X 自动控制模式下的分层控制策略协同图**
+
+![图 4-X 自动控制模式下的分层控制策略协同图](../images/pid_control_strategy.svg)
+
+<!-- ❌ 错误：直接嵌入 Mermaid 源代码 -->
+```mermaid
+graph LR
+    ...
+``` 
+```
+
+4. 每张图片必须紧跟在首次引用该图的文字之后，并附带完整的图表标题（格式：`**图 {章节号}-{序号} {标题}**`）。
+
 ---
 
 ## 七、准则六：【强制】长篇学术内容的"切香肠"生成法
@@ -294,6 +537,26 @@ mmdc -i Docs/flowchart.mmd -o Docs/images/flowchart.png -s 4
 ### 背景
 
 毕业论文章节篇幅较长，一次性生成整章内容会导致技术深度不足、内容空洞、"几百字敷衍一章"的问题。必须采用精细化的逐节撰写方式，确保每一节都有足够的技术血肉。
+
+### 论文字数分配建议
+
+本科毕业论文总字数建议 15,000-20,000 字（不含代码和参考文献）。各章节字数分配建议如下：
+
+| 章节 | 内容 | 字数占比 | 建议字数 | 撰写重点 |
+|---|---|---|---|---|
+| 第一章 | 绪论 | 10-15% | 1,500-3,000 | 研究背景、国内外现状、研究内容、论文结构 |
+| 第二章 | 需求分析与总体设计 | 10-15% | 1,500-3,000 | 功能需求、性能需求、系统架构设计 |
+| 第三章 | 硬件电路设计 | 15-20% | 2,500-4,000 | 各模块电路设计、元器件选型、原理图分析 |
+| 第四章 | STM32 控制层软件设计 | 20-25% | 3,000-5,000 | 驱动开发、控制算法、调度器、通信协议 |
+| 第五章 | ESP32 交互层软件设计 | 15-20% | 2,500-4,000 | GUI 设计、网络通信、API 集成、语音交互 |
+| 第六章 | 系统测试与结果分析 | 10-15% | 1,500-3,000 | 测试方案、测试结果、性能分析 |
+| 第七章 | 总结与展望 | 5-10% | 800-1,500 | 工作总结、创新点、不足与展望 |
+
+**注意事项**：
+1. 第四章（软件设计）通常是论文的核心，字数应最多
+2. 第一章（绪论）不宜过长，避免"头重脚轻"
+3. 每章至少包含 3-4 个小节，每小节 500-1,000 字
+4. 图表、代码、公式不计入正文字数
 
 ### 行为规范
 
@@ -304,7 +567,7 @@ mmdc -i Docs/flowchart.mmd -o Docs/images/flowchart.png -s 4
    - 控制流逻辑（if/else 分支、状态机转换）
    - CAN 协议帧定义（帧 ID、数据域格式）
    - 函数调用关系与参数传递
-3. **单节字数要求**：通过详细解释代码的运行逻辑来扩充学术字数，确保**单节（哪怕是一个三级子标题）的字数不少于 800 字**。
+3. **单节字数要求**：通过详细解释代码的运行逻辑来扩充学术字数，确保**单节（哪怕是一个三级子标题）的字数不少于 500 字**（约 1 页 A4 纸）。
 
 ### 操作流程
 
@@ -314,14 +577,120 @@ mmdc -i Docs/flowchart.mmd -o Docs/images/flowchart.png -s 4
 ❌ 错误做法：一次性写出整个第三章（3.1 ~ 3.6 全部内容）
 
 ✅ 正确做法：
-  Step 1: 先写 3.1.1（如"传感器数据采集模块设计"），查阅 repomix-output.xml 中对应代码，融入真实变量名和数据结构，确保 ≥800 字
+  Step 1: 先写 3.1.1（如"传感器数据采集模块设计"），查阅 repomix-output.xml 中对应代码，融入真实变量名和数据结构，确保 ≥500 字
   Step 2: 确认 3.1.1 内容充实后，继续写 3.1.2（如"CAN 总线通信协议设计"）
   Step 3: 逐节推进，每节完成后暂停等待确认
 ```
 
+### 典型工作流示例
+
+以下是一个完整的论文小节撰写工作流，以"4.2.1 SHT30 温湿度传感器驱动设计"为例：
+
+**Step 1：明确写作目标**
+- 章节：第四章 STM32 控制层软件设计
+- 小节：4.2.1 SHT30 温湿度传感器驱动设计
+- 目标字数：800-1,000 字
+- 核心内容：SHT30 驱动的初始化、数据读取、错误处理
+
+**Step 2：查阅真实代码**
+```bash
+# 在 repomix-output.xml 中搜索 SHT30 相关代码
+grep -n "sht30\|SHT30" repomix-output.xml
+
+# 定位到文件：Src/Stm32_Control/crates/bsw/src/sht30.rs
+# 阅读代码，记录关键信息：
+# - 结构体定义：Sht30Driver
+# - 初始化函数：init()
+# - 数据读取函数：read_temperature(), read_humidity()
+# - I2C 通信地址：0x44
+# - 测量命令：0x2400（单次测量，高重复性）
+```
+
+**Step 3：搜索相关文献**
+```
+# 使用 WebFetch 搜索 SHT30 相关文献
+WebFetch(url="https://scholar.google.com/scholar?q=SHT30+temperature+humidity+sensor&hl=en",
+         prompt="Extract paper titles, authors, venues, years, and DOIs")
+
+# 筛选标准：
+# - 被引次数 > 20
+# - 发表年份 > 2015
+# - 与传感器驱动或嵌入式系统相关
+```
+
+**Step 4：撰写论文内容**
+```markdown
+## 4.2.1 SHT30 温湿度传感器驱动设计
+
+SHT30 是 Sensirion 公司生产的一款高精度数字温湿度传感器，采用 I2C 总线接口，
+温度测量精度为 ±0.3°C，湿度测量精度为 ±2%RH[@sht30datasheet]。本节详细介绍
+SHT30 驱动程序的设计与实现。
+
+### 4.2.1.1 驱动架构设计
+
+SHT30 驱动程序采用分层架构设计，分为硬件抽象层（HAL）和应用接口层（API）。
+硬件抽象层负责 I2C 总线的读写操作，应用接口层提供温湿度数据的读取接口。
+
+驱动程序的核心数据结构定义如下：
+
+​```rust
+pub struct Sht30Driver {
+    i2c: I2cType,           // I2C 总线实例
+    address: u8,            // 传感器地址（0x44）
+    last_temperature: f32,  // 最近一次温度测量值
+    last_humidity: f32,     // 最近一次湿度测量值
+}
+​```
+
+### 4.2.1.2 初始化流程
+
+SHT30 的初始化流程包括以下步骤：
+
+1. 配置 I2C 总线参数（时钟频率 100kHz）
+2. 发送软复位命令（0x30A2）
+3. 等待传感器就绪（约 10ms）
+4. 读取状态寄存器验证初始化成功
+
+初始化代码的关键片段如下：
+（此处可插入代码片段）
+
+### 4.2.1.3 数据读取机制
+
+SHT30 支持单次测量和周期性测量两种模式。本系统采用单次测量模式，每次读取时
+发送测量命令（0x2400），等待测量完成后读取 6 字节数据。
+
+数据读取流程如图 4-1 所示。
+**图 4-1 SHT30 数据读取流程图**
+
+![图 4-1 SHT30 数据读取流程图](../images/sht30_read_flow.svg)
+
+### 4.2.1.4 错误处理机制
+
+驱动程序实现了完善的错误处理机制，包括：
+
+1. **CRC 校验**：每帧数据包含 CRC 校验码，确保数据完整性
+2. **超时处理**：I2C 通信超时阈值设为 100ms
+3. **重试机制**：通信失败时自动重试 3 次
+4. **异常值过滤**：温度超出 -40°C~125°C 范围时判定为异常
+```
+
+**Step 5：插入图表和代码占位符**
+- 使用 Mermaid 绘制 SHT30 数据读取流程图
+- 在适当位置插入代码片段（精简版）
+- 预留实物图占位符（如 SHT30 模块实物图）
+
+**Step 6：检查字数和质量**
+- 字数统计：约 850 字
+- 质量检查：
+  - ✓ 包含真实代码元素（结构体、函数名）
+  - ✓ 引用数据手册文献
+  - ✓ 图文穿插（流程图）
+  - ✓ 术语一致性（I2C、CRC、RH）
+  - ✓ 预留实物图占位符
+
 ### 代码融入示例
 
-撰写 STM32 侧 PID 控制模块时，不能只写"系统采用 PID 算法进行温度控制"这样的泛泛之谈，而必须查阅 `repomix-output.xml` 中 `bsw/src/pid.rs` 的真实代码，将结构体定义、比例/积分/微分参数的计算逻辑、输出限幅处理等细节融入论文描述中，使每一节都具有扎实的技术深度。
+撰写 STM32 侧 PID 控制模块时，不能只写"系统采用 PID 算法进行温度控制"这样的泛泛之谈。**必须先查阅源码确认实际控制策略**：本系统中温度/湿度/土壤湿度采用迟滞控制（开关控制），PID 算法仅用于通风风扇的转速闭环控制。撰写时必须查阅 `repomix-output.xml` 中 `dispatcher.rs`（调度器逻辑）和 `pid.rs`（PID 算法）的真实代码，将控制策略分层、结构体定义、比例/积分/微分参数的计算逻辑、输出限幅处理等细节准确地融入论文描述中。
 
 ---
 
