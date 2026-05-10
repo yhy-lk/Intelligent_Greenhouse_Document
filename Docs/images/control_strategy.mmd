@@ -1,0 +1,18 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    MODE{"三种控制模式"}
+
+    MODE --> M1["手动模式<br/>GUI 直接操控执行器"]
+    MODE --> M2["自动模式<br/>本地迟滞调度器"]
+    MODE --> M3["AI 领航模式<br/>语音 + 大模型建议"]
+
+    M1 --> CAN1["CAN WriteSet 帧"]
+    M1 --> EXEC["从节点执行器"]
+
+    M2 --> HYST["迟滞控制"]
+    HYST --> EXEC
+
+    M3 --> STT["STT 识别"]
+    STT --> LLM["DeepSeek 推理"]
+    LLM --> TTS["TTS 播放"]
+    LLM --> DISP2["建议展示"]

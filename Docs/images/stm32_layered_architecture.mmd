@@ -1,0 +1,22 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    subgraph FW["firmware 固件层"]
+        MAIN["main.rs"] --- SHARED["shared.rs"] --- DOM["domains/ 域任务"]
+    end
+
+    subgraph APP["crates/app 应用层"]
+        SHT_APP["SHT30 采集"] --- BH_APP["BH1750 采集"] --- LED_APP["LED/WS2812"]
+    end
+
+    subgraph BSW["crates/bsw 基础软件层"]
+        CANP["can_proto"] --- PROTO["protocol"] --- PID["pid"]
+        MOTOR["motor_ctrl"] --- SHT_DRV["sht30 驱动"] --- BH_DRV["bh1750 驱动"]
+    end
+
+    subgraph SVC["crates/service 服务层"]
+        COLORS["colors"] --- LED_SVC["led 服务"]
+    end
+
+    FW --> APP
+    APP --> BSW
+    BSW --> SVC

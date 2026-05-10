@@ -1,0 +1,27 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    subgraph App["App 应用层"]
+        CAN_APP["CAN App"] --- LVGL_APP["LVGL App"]
+    end
+
+    subgraph Service["Service 服务层"]
+        SS["SensorState"] --- CS["CanService"] --- GUI_S["GUI Manager"]
+        DS["DeepSeekAPI"] --- VA["VoiceAssistant"] --- WS["WifiService"]
+    end
+
+    subgraph ECUAL["ECUAL ECU 抽象层"]
+        DISP["Display HAL"] --- MIC["INMP441"] --- AMP["MAX98357A"]
+    end
+
+    subgraph MCAL["MCAL 控制器抽象层"]
+        I2S["I2S HAL"] --- WIFI_HAL["WiFi HAL"]
+    end
+
+    subgraph BSP["BSP 板级支持"]
+        OS["FreeRTOS 任务配置"]
+    end
+
+    App --> Service
+    Service --> ECUAL
+    ECUAL --> MCAL
+    MCAL --> BSP
