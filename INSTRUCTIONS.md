@@ -44,24 +44,47 @@
 
 ### 背景
 
-原生 `web_search` 工具在当前网络环境下被代理拦截，无法返回真实搜索结果。论文写作需要引用**真实存在的**学术文献、技术文档和标准规范。
+论文写作需要引用**真实存在的**学术文献、技术文档和标准规范。项目已配置 DuckDuckGo MCP 服务器用于联网搜索，并配置了 Agent Browser MCP 服务器用于浏览器自动化。
 
 ### 行为规范
 
-1. **绝对禁止**使用内置 `web_search` 工具（返回的结果不可信，可能包含虚构文献）。
-2. 需要查阅文献、技术文档或行业新闻时，**必须**通过 Bash 调用本地 DuckDuckGo CLI。
+1. **【首选】使用 MCP 服务器搜索**：通过 `mcp__duckduckgo__duckduckgo_web_search` 工具进行搜索，该工具通过项目 `.mcp.json` 中配置的 DuckDuckGo MCP 服务器提供，已配置代理支持。
+2. **【备选】Bash CLI 搜索**：若 MCP 工具不可用或出现速率限制，可通过 Bash 调用本地 DuckDuckGo CLI 作为降级方案。
+3. **`WebFetch` 工具可用**：当已有明确的 URL 需要抓取网页内容时，可直接使用 `WebFetch` 工具获取页面内容并进行分析。
+4. **【浏览器自动化】Agent Browser MCP**：当需要访问动态网页（JavaScript 渲染）、进行交互操作（登录、搜索、点击）、或截取网页截图时，使用 `mcp__agent-browser__*` 系列工具。该工具提供完整的浏览器控制能力，包括导航、填写表单、点击、截图、获取页面快照等。
 
 ### 操作流程
 
-```bash
-# Step 1：确保依赖可用（每次会话首次搜索前执行一次）
-pip install duckduckgo-search
+```
+# 方式一（首选）：使用 MCP 搜索工具
+# 直接调用 mcp__duckduckgo__duckduckgo_web_search，参数：
+#   query: 搜索关键词
+#   count: 返回结果数量（默认 10）
 
-# Step 2：执行搜索（返回前 5 条结果）
+# 方式二（备选）：通过 Bash 调用 CLI
+pip install duckduckgo-search    # 首次搜索前执行一次
 ddgs text -k "你的搜索关键词" -m 5
 
-# Step 3：若结果中有价值的 URL，使用抓取工具进一步阅读原文
+# 方式三：抓取已知 URL 的内容
+# 使用 WebFetch 工具
+
+# 方式四：浏览器自动化（动态页面 / 交互操作 / 截图）
+# 常用工具链：
+#   1. mcp__agent-browser__browser_new_session  — 创建浏览器会话
+#   2. mcp__agent-browser__browser_navigate     — 导航到 URL
+#   3. mcp__agent-browser__browser_fill         — 填写输入框
+#   4. mcp__agent-browser__browser_click        — 点击元素
+#   5. mcp__agent-browser__browser_snapshot      — 获取页面可访问性树（AI 可读）
+#   6. mcp__agent-browser__browser_screenshot    — 截图（必须指定 path 参数保存到工作区）
+#   7. mcp__agent-browser__browser_get_text      — 获取页面文本
+#   8. mcp__agent-browser__browser_get_html      — 获取页面 HTML
 ```
+
+### 截图与资源文件保存规范
+
+- **截图必须保存到工作区**：使用 `browser_screenshot` 时，必须通过 `path` 参数指定保存路径，格式为 `Docs/images/screenshots/` 目录下。
+- **禁止保存到 C 盘临时目录**：不要依赖默认保存路径（如 `C:\Users\...`），所有截图资源必须归档到项目工作区内。
+- **示例**：`path: "e:\\school\\University\\Graduation_Project\\Intelligent_Greenhouse\\Document\\Docs\\images\\screenshots\\百度搜索结果.png"`
 
 ### 搜索策略建议
 

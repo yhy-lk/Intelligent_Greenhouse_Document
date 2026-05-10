@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "duckduckgo": {
+      "command": "D:\\Tools\\NodeGlobal\\duckduckgo-mcp-server",
+      "env": {
+        "HTTP_PROXY": "http://127.0.0.1:7890",
+        "HTTPS_PROXY": "http://127.0.0.1:7890"
+      }
+    },
+    "agent-browser": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "agent-browser-mcp"
+      ],
+      "env": {
+        "AGENT_BROWSER_PATH": "D:\\Tools\\NodeGlobal\\node_modules\\agent-browser\\bin\\agent-browser-win32-x64.exe",
+        "PATH": "D:\\Tools\\NodeGlobal;D:\\nodejs;E:\\anaconda;E:\\anaconda\\Library\\mingw-w64\\bin;E:\\anaconda\\Library\\usr\\bin;E:\\anaconda\\Library\\bin;E:\\anaconda\\Scripts;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32\\OpenSSH;C:\\Program Files\\dotnet;D:\\Tools\\Pandoc"
+      }
+    }
+  }
+}
