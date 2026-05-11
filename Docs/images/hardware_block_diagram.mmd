@@ -1,0 +1,11 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    ESP32[ESP32-S3 主节点]
+    ESP32 --> TFT[TFT触摸屏]
+    ESP32 --> AUDIO[音频模块]
+    ESP32 --> TJA1[TJA1051T]
+    TJA1 --> CAN[CAN总线 1Mbps]
+    CAN --> TJA2[TJA1051T]
+    TJA2 --> STM32[STM32F407 从节点]
+    STM32 --> SENSORS[传感器模块]
+    STM32 --> ACTUATORS[执行器模块]

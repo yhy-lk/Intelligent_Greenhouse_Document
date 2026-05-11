@@ -48,7 +48,7 @@
 
 **图 2-1 分布式多节点系统总体架构**
 
-![图 2-1 分布式多节点系统总体架构](../images/system_architecture.svg)
+![图 2-1 分布式多节点系统总体架构](../images/system_architecture.png)
 
 主节点（ESP32-S3）承担交互层的全部功能，具体包括：LVGL 图形界面的渲染与事件处理、语音助手的录音与播放、DeepSeek 大语言模型的 API 调用与推理、WiFi 网络连接管理，以及多节点状态的聚合管理。ESP32-S3 主频为 240 MHz，采用双核 Xtensa LX7 架构，内置 WiFi 与蓝牙 5.0 模块[@esp32techref]，其丰富的外设接口（SPI、I2C、I2S、UART）和双核并行处理能力使其适合承担高并发的交互层任务。
 
@@ -103,13 +103,13 @@ STM32 从节点通过硬件过滤器实现帧的地址过滤：配置两组 Mask
 
 **图 2-3 ESP32 主节点分层软件架构**
 
-![图 2-3 ESP32 主节点分层软件架构](../images/esp32_layered_architecture.svg)
+![图 2-3 ESP32 主节点分层软件架构](../images/esp32_layered_architecture.png)
 
 **STM32 从节点分层架构**如图 2-4 所示，采用 Rust 语言与 Embassy 异步运行时框架[@embassy2024]，按 Cargo crate 组织为四层结构：firmware 固件层包含 main.rs（硬件初始化与任务启动）、shared.rs（全局状态单例 `GLOBAL_STATE`，由 `CriticalSectionRawMutex` 保护）以及 domains 模块（按功能域组织的异步任务，包括传感器采集、CAN 收发、调度器、执行器控制等）；crates/app 应用层封装传感器数据的读取逻辑与执行器的高级控制逻辑；crates/bsw 基础软件层提供底层驱动与协议实现，包括 can_proto（CAN 协议编解码）、protocol（参数索引枚举与数据结构定义）、pid（离散位置式 PID 控制器）、motor_ctrl（风扇电机闭环控制）、sht30 和 bh1750（I2C 传感器驱动）；crates/service 服务层提供颜色转换等公共服务。
 
 **图 2-4 STM32 从节点分层软件架构**
 
-![图 2-4 STM32 从节点分层软件架构](../images/stm32_layered_architecture.svg)
+![图 2-4 STM32 从节点分层软件架构](../images/stm32_layered_architecture.png)
 
 两个节点的软件架构虽然在语言（C/C++ vs Rust）和运行时（FreeRTOS vs Embassy）上有所不同，但均遵循"分层解耦、逐层调用"的设计原则。层间接口通过函数调用或消息传递实现，CAN 总线协议作为主从节点间的唯一通信接口，实现了跨节点的松耦合集成。
 
@@ -119,7 +119,7 @@ STM32 从节点通过硬件过滤器实现帧的地址过滤：配置两组 Mask
 
 **图 2-5 三种控制模式逻辑关系**
 
-![图 2-5 三种控制模式逻辑关系](../images/control_strategy.svg)
+![图 2-5 三种控制模式逻辑关系](../images/control_strategy.png)
 
 ### 2.3.1 手动控制模式
 

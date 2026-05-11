@@ -2,17 +2,18 @@
 graph TD
     MODE{"三种控制模式"}
 
-    MODE --> M1["手动模式<br/>GUI 直接操控执行器"]
-    MODE --> M2["自动模式<br/>本地迟滞调度器"]
-    MODE --> M3["AI 领航模式<br/>语音 + 大模型建议"]
+    MODE --> M1["手动模式"]
+    MODE --> M2["自动模式"]
+    MODE --> M3["AI 领航模式"]
 
-    M1 --> CAN1["CAN WriteSet 帧"]
-    M1 --> EXEC["从节点执行器"]
+    M1 -->|"GUI 操作"| CAN1["CAN WriteSet 帧"]
+    CAN1 -->|"直接驱动"| EXEC["从节点执行器"]
 
-    M2 --> HYST["迟滞控制"]
+    M2 -->|"目标范围下发"| CAN2["CAN WriteSet 帧"]
+    CAN2 -->|"阈值参数"| HYST["从节点迟滞调度器"]
     HYST --> EXEC
 
-    M3 --> STT["STT 识别"]
+    M3 --> STT["STT 语音识别"]
     STT --> LLM["DeepSeek 推理"]
-    LLM --> TTS["TTS 播放"]
+    LLM --> TTS["TTS 语音合成"]
     LLM --> DISP2["建议展示"]
