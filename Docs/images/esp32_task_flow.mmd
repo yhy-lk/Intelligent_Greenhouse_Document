@@ -1,0 +1,18 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    subgraph ESP32["ESP32-S3 主节点"]
+        direction TB
+        CAN_TASK["CAN RX 任务<br/>10ms 轮询"]
+        LVGL_TASK["LVGL 渲染任务<br/>20ms 周期"]
+        VOICE_TASK["语音助手任务<br/>按需创建"]
+    end
+
+    subgraph STATE["SensorState 数字孪生"]
+        NODES["s_nodes[16]<br/>NodeData 数组"]
+        MUTEX["FreeRTOS Mutex"]
+    end
+
+    CAN_TASK -->|"写入 current_values"| NODES
+    LVGL_TASK -->|"快照读取"| NODES
+    VOICE_TASK -->|"查询传感器数据"| NODES
+    NODES --> MUTEX

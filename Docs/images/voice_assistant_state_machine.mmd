@@ -1,0 +1,13 @@
+%%{init: {'theme': 'base'}}%%
+stateDiagram-v2
+    [*] --> WAITING
+    WAITING --> RECORDING : 音量 > VOICE_THRESHOLD
+    RECORDING --> PROCESSING_STT : 静音超时 或 缓冲满
+    RECORDING --> WAITING : 录音 < 0.8s (噪音过滤)
+    PROCESSING_STT --> PROCESSING_LLM : STT 识别成功
+    PROCESSING_STT --> WAITING : STT 失败
+    PROCESSING_LLM --> PROCESSING_TTS : DeepSeek 返回成功
+    PROCESSING_LLM --> WAITING : LLM 错误
+    PROCESSING_TTS --> PLAYBACK : TTS 下载成功
+    PROCESSING_TTS --> WAITING : TTS 失败
+    PLAYBACK --> WAITING : 播放完成

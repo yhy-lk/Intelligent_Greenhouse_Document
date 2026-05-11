@@ -1,0 +1,13 @@
+%%{init: {'theme': 'base'}}%%
+flowchart TD
+    A[构建提示词] --> B[注入传感器数据]
+    B --> C[组装 JSON 请求]
+    C --> D[HTTP POST 到 api.deepseek.com]
+    D --> E{HTTP 200?}
+    E -->|否| F[返回错误信息]
+    E -->|是| G[解析 JSON 响应]
+    G --> H{包含 error 字段?}
+    H -->|是| F
+    H -->|否| I[提取 choices.content]
+    I --> J[更新对话历史]
+    J --> K[返回 AI 回答]
