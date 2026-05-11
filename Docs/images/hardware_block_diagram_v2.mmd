@@ -1,0 +1,31 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    ESP32[ESP32-S3 主节点] --> TFT[TFT触摸屏]
+    ESP32 --> AUDIO[音频模块]
+    ESP32 --> TJA1[TJA1051T]
+    TJA1 <--> CAN[CAN总线 1Mbps]
+    CAN <--> TJA2[TJA1051T]
+    TJA2 <--> STM32[STM32F407 从节点]
+
+    STM32 --> SENSORS[传感器模块]
+    STM32 --> ACTUATORS[执行器模块]
+
+    subgraph Sensors["传感器模块"]
+        SHT30[SHT30 温湿度]
+        BH1750[BH1750 光照]
+        SOIL[土壤湿度 ADC]
+    end
+
+    subgraph Actuators["执行器模块"]
+        FAN[通风风扇<br/>TB6612+编码器+PID]
+        PUMP[水泵<br/>光耦继电器]
+        HUM[加湿器<br/>光耦继电器]
+        LED[WS2812B<br/>补光灯]
+        SERVO[MG995<br/>遮阳舵机]
+    end
+
+    SENSORS --> Sensors
+    ACTUATORS --> Actuators
+
+    style Sensors fill:#f5f5f5,stroke:#666
+    style Actuators fill:#f5f5f5,stroke:#666

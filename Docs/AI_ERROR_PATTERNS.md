@@ -62,9 +62,35 @@
 
 | 工具/功能 | 不可用原因 |
 |:---|:---|
-| 读取 PNG/JPG 图片 | AI 工具链无法解析位图文件内容 |
+| 读取 PNG/JPG 图片 | **绝对不可用** — 详见下方说明 |
 | DuckDuckGo 搜索 | 代理 SSL 握手失败 |
 | `ddgs` CLI | 代理 SSL 握手失败 |
+
+### ⚠️ 关于读取 PNG/JPG 图片的重要说明
+
+**问题本质**：AI 工具链中的 Read 工具无法解析 PNG/JPG 等位图文件的像素内容。Read 工具只能读取纯文本文件（如 .md、.py、.json、.mmd 等），对于二进制图片文件，它会返回乱码或错误信息，**无法提取图片中的任何视觉信息**。
+
+**常见错误场景**：
+- AI 试图通过 Read 工具读取 PNG 图片来"查看"图表内容
+- AI 试图通过读取 PNG 文件来确认图表是否正确渲染
+- AI 试图从 PNG 图片中提取文字或数据信息
+
+**正确做法**：
+1. **查看图表内容** → 读取对应的 `.mmd`（Mermaid 源文件）或 `.svg`（矢量图，可读取文本内容）
+2. **确认图表渲染效果** → 请用户手动打开 PNG 文件查看，或使用 `mcp__agent-browser__browser_screenshot` 工具截图
+3. **修改图表** → 编辑 `.mmd` 源文件，然后重新生成 PNG
+
+**示例**：
+```bash
+# ❌ 错误：试图读取 PNG 图片
+Read("Docs/images/architecture.png")  # 无法解析位图内容
+
+# ✅ 正确：读取 Mermaid 源文件
+Read("Docs/images/architecture.mmd")  # 可读取文本内容并修改
+
+# ✅ 正确：读取 SVG 文件（SVG 是 XML 格式，可读取文本）
+Read("Docs/images/architecture.svg")  # 可读取 XML 文本内容
+```
 
 ---
 

@@ -1,0 +1,16 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    ESP32["ESP32-S3 主节点<br/>TWAI / GPIO48,GPIO47"]
+    TJA1["TJA1051T<br/>收发器"]
+    CANBUS["CAN 总线<br/>1 Mbps 双绞线"]
+    TJA2["TJA1051T<br/>收发器"]
+    STM32["STM32F407VET6 从节点<br/>bxCAN / PB8,PB9"]
+    R1["120 Ω"]
+    R2["120 Ω"]
+
+    ESP32 --> TJA1
+    TJA1 --> CANBUS
+    CANBUS --> TJA2
+    TJA2 --> STM32
+    R1 --- CANBUS
+    R2 --- CANBUS

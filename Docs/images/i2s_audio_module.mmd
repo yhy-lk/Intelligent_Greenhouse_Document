@@ -1,0 +1,18 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    ESP32["ESP32-S3<br/>I2S_NUM_0"]
+    BCLK["BCLK<br/>GPIO40"]
+    LRCK["LRCK<br/>GPIO41"]
+    MIC["INMP441<br/>麦克风"]
+    AMP["MAX98357A<br/>功放"]
+    SPK["扬声器"]
+
+    ESP32 -->|"时钟"| BCLK
+    ESP32 -->|"时钟"| LRCK
+    BCLK --> MIC
+    LRCK --> MIC
+    MIC -->|"SD: GPIO1"| ESP32
+    ESP32 -->|"DIN: GPIO42"| AMP
+    BCLK --> AMP
+    LRCK --> AMP
+    AMP --> SPK

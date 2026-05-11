@@ -1,0 +1,10 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    USB["USB 5V 输入"] --> LDO["板载 LDO<br/>5V → 3.3V"]
+    USB --> V5["5V 域负载<br/>风扇驱动 · 舵机 · 水泵<br/>加湿器 · WS2812B · 功放"]
+    LDO --> V33["3.3V 域负载<br/>SHT30 · BH1750<br/>土壤湿度 · OLED"]
+
+    style USB fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style LDO fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style V5 fill:#f0f0f0,stroke:#333,stroke-width:1px
+    style V33 fill:#f0f0f0,stroke:#333,stroke-width:1px

@@ -1,0 +1,16 @@
+%%{init: {'theme': 'base'}}%%
+flowchart TD
+    A["CPU 编码 RGB8 数据<br/>Bit0→32%占空比 Bit1→66%占空比"]
+    B["DMA Buffer<br/>600个u16占空比值"]
+    C["DMA 控制器<br/>TIM4 UPD 触发逐个搬运"]
+    D["CCR1 寄存器<br/>每个UPD事件更新占空比"]
+    E["TIM4 CH1 PWM<br/>800kHz 输出"]
+    F["WS2812B 灯带<br/>25颗 / PD12"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    E -.->|"UPD事件<br/>触发DMA"| C
+    F -.->|">50μs 低电平<br/>复位帧"| F

@@ -1,0 +1,30 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    STM32["STM32F407VET6"]
+    subgraph I2C["I2C 传感器"]
+        I2C2["I2C2 PB10/PB11 SHT30"]
+        I2C1["I2C1 PB6/PB7 BH1750"]
+    end
+    subgraph TIM["定时器 PWM / 编码器"]
+        TIM1["TIM1 PE9 风扇 20kHz"]
+        TIM3["TIM3 PC6/PC7 编码器"]
+        TIM4["TIM4 PD12 WS2812B"]
+        TIM5["TIM5 PA1 舵机 50Hz"]
+    end
+    subgraph OTHER["GPIO / CAN / ADC"]
+        CAN["bxCAN PB8/PB9"]
+        RLY["PD13/PE4 水泵 加湿器"]
+        DIR["PE10/PE11 风扇方向"]
+        SOIL["PC1 ADC 土壤湿度"]
+    end
+
+    STM32 --> I2C2
+    STM32 --> I2C1
+    STM32 --> TIM1
+    STM32 --> TIM3
+    STM32 --> TIM4
+    STM32 --> TIM5
+    STM32 --> CAN
+    STM32 --> RLY
+    STM32 --> DIR
+    STM32 --> SOIL

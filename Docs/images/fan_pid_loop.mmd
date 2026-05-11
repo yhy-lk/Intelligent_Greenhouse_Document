@@ -1,0 +1,15 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    SETPOINT["目标转速<br/>1200~4500 RPM"]
+    PID["PID 控制器<br/>Kp=2.0 Ki=0.5 Kd=0.0<br/>周期 100ms"]
+    TB6612["TB6612 驱动<br/>PWM 20kHz"]
+    FAN["DC 风扇电机"]
+    ENCODER["正交编码器<br/>TIM3 QEI 4倍频"]
+    SPEED["实际转速"]
+
+    SETPOINT --> PID
+    PID --> TB6612
+    TB6612 --> FAN
+    FAN --> ENCODER
+    ENCODER --> SPEED
+    SPEED --> PID

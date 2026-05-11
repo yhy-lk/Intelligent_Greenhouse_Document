@@ -1,0 +1,40 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    MCU["ESP32-S3<br/>双核 LX7 240MHz<br/>8MB PSRAM / 16MB Flash"]
+
+    subgraph DISP["显示子系统"]
+        direction TB
+        TFT["8080 并行总线<br/>16-bit 数据线"]
+        TOUCH_IC["触摸控制器<br/>SPI 接口"]
+    end
+
+    subgraph AUD["音频子系统"]
+        direction TB
+        BCLK["I2S BCLK<br/>GPIO40"]
+        LRCK["I2S LRCK<br/>GPIO41"]
+        MIC["INMP441 麦克风<br/>I2S DIN GPIO1"]
+        AMP["MAX98357A 功放<br/>I2S DOUT GPIO42"]
+    end
+
+    subgraph BUS["CAN 总线"]
+        direction TB
+        TX_PIN["TWAI TX<br/>GPIO48"]
+        RX_PIN["TWAI RX<br/>GPIO47"]
+        XCVR["TJA1051T<br/>CAN 收发器"]
+    end
+
+    subgraph NET["网络"]
+        WIFI["WiFi 802.11<br/>b/g/n 内置"]
+    end
+
+    MCU -->|"并行 8080"| TFT
+    MCU -->|"SPI"| TOUCH_IC
+    MCU -->|"I2S_NUM_0"| BCLK
+    MCU -->|"I2S_NUM_0"| LRCK
+    MCU -->|"I2S DIN"| MIC
+    MCU -->|"I2S DOUT"| AMP
+    MCU -->|"TWAI"| TX_PIN
+    MCU -->|"TWAI"| RX_PIN
+    TX_PIN --> XCVR
+    RX_PIN --> XCVR
+    MCU -->|"内置模块"| WIFI

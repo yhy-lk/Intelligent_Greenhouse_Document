@@ -1,0 +1,13 @@
+%%{init: {'theme': 'base'}}%%
+graph LR
+    A[main.rs<br/>初始化外设] --> B[Spawner<br/>派发任务]
+    B --> C[sht30_task<br/>1Hz 温湿度]
+    B --> D[bh1750_task<br/>1Hz 光照]
+    B --> E[soil_moisture_task<br/>ADC 采样]
+    B --> F[dispatcher_task<br/>500ms 调度]
+    B --> G[ventilation_fan_task<br/>100ms PID]
+    B --> H[can_rx_task<br/>CAN 接收]
+    B --> I[can_tx_task<br/>1Hz 上报]
+    B --> J[ws2812_task<br/>50ms 补光]
+    B --> K[mg995_task<br/>舵机控制]
+    B --> L[oled_ui_task<br/>OLED 显示]

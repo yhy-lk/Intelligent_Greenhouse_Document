@@ -1,0 +1,12 @@
+%%{init: {'theme': 'base'}}%%
+flowchart TD
+    A[接收 CAN 帧] --> B{标准帧?}
+    B -->|否| C[丢弃]
+    B -->|是| D[解析 ID]
+    D --> E{节点匹配?}
+    E -->|否| C
+    E -->|是| F{功能码?}
+    F -->|Write/TimeSync| G[解析载荷]
+    F -->|其他| C
+    G --> H[参数索引路由]
+    H --> I[更新 GLOBAL_STATE]

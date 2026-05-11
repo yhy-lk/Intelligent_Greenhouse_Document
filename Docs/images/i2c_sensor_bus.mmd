@@ -1,0 +1,17 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    STM32["STM32F407VET6<br/>I2C2 外设"]
+    SCL["SCL (PB10)"]
+    SDA["SDA (PB11)"]
+    R["4.7kΩ 上拉<br/>至 3.3V"]
+    SHT30["SHT30<br/>Addr: 0x44<br/>温湿度"]
+    BH1750["BH1750<br/>Addr: 0x23<br/>光照强度"]
+
+    STM32 --> SCL
+    STM32 --> SDA
+    R --> SCL
+    R --> SDA
+    SCL --> SHT30
+    SDA --> SHT30
+    SCL --> BH1750
+    SDA --> BH1750

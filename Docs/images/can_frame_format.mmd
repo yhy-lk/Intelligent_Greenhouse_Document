@@ -1,11 +1,16 @@
 %%{init: {'theme': 'base'}}%%
-graph TD
-    CAN["CAN 2.0A 标准帧"] --> ID["11-bit 标识符"]
-    CAN --> DATA["8-byte 数据域"]
+graph LR
+    subgraph CAN_ID["11-bit CAN ID"]
+        FUNC["功能码<br/>Bit 10..7<br/>4-bit"]
+        NODE["节点ID<br/>Bit 6..0<br/>7-bit"]
+    end
+    subgraph DATA["8 字节数据域"]
+        B0["Byte 0<br/>参数索引 1B"]
+        B1["Byte 1-3<br/>保留 3B"]
+        B2["Byte 4-7<br/>参数值 4B<br/>小端序"]
+    end
 
-    ID --> FUNC["功能码: Bit 10..7 共 4-bit"]
-    ID --> NODE["节点 ID: Bit 6..0 共 7-bit"]
-
-    DATA --> B0["Byte 0: 参数索引 1B"]
-    DATA --> B1["Byte 1-3: 保留字段 3B"]
-    DATA --> B2["Byte 4-7: 参数值 4B 小端序"]
+    FUNC --- NODE
+    NODE --- B0
+    B0 --- B1
+    B1 --- B2
