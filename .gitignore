@@ -54,8 +54,6 @@ Docs/output/*.pdf
 *.backup
 
 # Claude 配置
-.claude/settings.local.json
-.claude/settings.json
 
 # 系统文件
 desktop.ini
