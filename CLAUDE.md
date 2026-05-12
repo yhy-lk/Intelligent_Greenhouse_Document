@@ -4,7 +4,7 @@
 
 `repomix-output.xml` 包含项目全部源代码（ESP32 交互层 + STM32 控制层），撰写涉及模块实现的内容时**必须先查阅对应代码**。
 
-详细写作流程由 Skills 承载：`thesis-writer`（论文写作）、`mermaid-renderer`（图表渲染）、`thesis-reviewer`（论文审查）。
+详细写作流程由 Skills 承载：`thesis-writer`（论文正文写作）、`abstract-writer`（英文摘要）、`mermaid-renderer`（图表渲染）、`thesis-reviewer`（论文审查）。
 
 ---
 
@@ -97,13 +97,25 @@ pandoc Chapter4_STM32控制层软件设计.md \
 
 ## 3. 禁止 AI 语气词汇
 
-以下词汇在论文中禁止使用：innovative、pioneering、revolutionary、transformative framework、superior、remarkable、unprecedented、breakthrough、comprehensive experiments、extensive analysis。出现 3 处以上为 MAJOR 级别问题。
+以下词汇在论文中禁止使用（完整列表见 `references/forbidden-patterns.md`）：
+- 创新夸大：innovative、pioneering、revolutionary、transformative framework
+- 性能夸大：superior、surpass、excel、remarkable、unprecedented、breakthrough
+- 贡献空话：comprehensive experiments、extensive analysis、general-purpose、is capable of
+- AI 连接词：notably、yielding、at its essence
+- AI 高频动词：encompass、differentiate、reveal、underscore、exhibit、pave the way for、highlight the potential of
+- AI 高频搭配：profound challenges、stems from、rigid、impede
 
-## 4. 术语一致性
+出现 3 处以上为 MAJOR 级别问题。替代词：propose、design、present、show、demonstrate、report、observe。
+
+## 4. 学术诚信
+
+内容必须基于真实实现，不得伪造数据或实验结果。引用必须来自真实文献，不得编造。AI 率检查要求：避免 AI 语气词（见上），用自己的语言改写，不要直接使用 AI 输出的原文。
+
+## 5. 术语一致性
 
 全文统一使用同一术语，首次出现给出英文：迟滞控制（Hysteresis Control）、主节点、从节点。
 
-## 5. 图表可读性
+## 6. 图表可读性
 
 SVG viewBox 宽度控制在 800px 以内。缩放后字号 = 16 × (500 / viewBox宽度)，结果应 >= 10px。结构化数据优先用 Markdown 表格，不要用流程图展示静态信息。
 
