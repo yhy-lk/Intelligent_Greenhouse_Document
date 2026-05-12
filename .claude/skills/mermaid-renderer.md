@@ -83,7 +83,7 @@ mmdc -i diagram.mmd -o diagram.png -s 4
 
 在论文 Markdown 中，只引用 PNG：
 ```markdown
-![图 X-Y 标题](../images/diagram.png)
+![图 X-Y 标题](../images/code_generated/diagram.png)
 ```
 
 论文 Markdown 中不得引用 SVG。
@@ -101,7 +101,7 @@ mmdc -i diagram.mmd -o diagram.png -s 4
 ### 7. 文件组织
 
 ```
-Docs/images/
+Docs/images/code_generated/
 ├── architecture.mmd        # 源文件
 ├── architecture.svg        # 矢量备份
 ├── architecture.png        # 论文中引用的文件
@@ -122,13 +122,13 @@ Docs/images/
 
 ### 步骤 2：编写 .mmd 文件
 
-应用以上所有约束。保存到 `Docs/images/` 目录。
+应用以上所有约束。保存到 `Docs/images/code_generated/` 目录。
 
 ### 步骤 3：渲染
 
 ```bash
-mmdc -i Docs/images/diagram.mmd -o Docs/images/diagram.svg
-mmdc -i Docs/images/diagram.mmd -o Docs/images/diagram.png -s 4
+mmdc -i Docs/images/code_generated/diagram.mmd -o Docs/images/code_generated/diagram.svg
+mmdc -i Docs/images/code_generated/diagram.mmd -o Docs/images/code_generated/diagram.png -s 4
 ```
 
 ### 步骤 4：插入论文
