@@ -162,5 +162,5 @@ contribution 3.
   does not address any limitation; the paper solves a different
   problem from the one it motivates.
 
-All of the above are CRITICAL gaps. Fix them before running
-`intro-drafter` or writing any Introduction prose.
+All of the above are CRITICAL gaps. Fix them before writing any
+thesis prose. Use `thesis-writer` for chapter drafting.

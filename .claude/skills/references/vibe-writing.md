@@ -7,7 +7,7 @@
 3. Recommended flow
 4. What AI does well
 5. What AI does badly
-6. Integration with pre-submission-reviewer
+6. Integration with thesis-reviewer
 
 ## 1. The resolved contradiction
 
@@ -21,7 +21,7 @@ Vibe Writing. The v2 resolution is:
   unless verified sentence by sentence by the user.
 - The mechanical writing rules in section 3.5 (no em-dashes, no
   banned AI-tone vocabulary, no Chinglish) are enforced by the
-  `pre-submission-reviewer` skill.
+  `thesis-reviewer` skill.
 - The behavioural rules in section 5.1 govern the process.
 
 In practical terms: write first in the user's own words; polish
@@ -109,7 +109,7 @@ Step B's inlined rules prevent most violations at the polish step.
 Step D is the backstop for anything that slipped through.
 
 - Run the banned-vocabulary scan (see
-  `pre-submission-reviewer`'s `references/forbidden-patterns.md`
+  `thesis-reviewer`'s `references/forbidden-patterns.md`
   for the canonical list and severity heuristics).
 - Remove any AI-tone word that survived Step B.
 - Remove any em-dash used as a sentence connector; replace with
@@ -157,25 +157,25 @@ verification is still required but rarely surfaces issues.
 For these tasks, AI is a net negative; the user must catch and
 correct at verification time.
 
-## 6. Integration with pre-submission-reviewer
+## 6. Integration with thesis-reviewer
 
-Vibe Writing and pre-submission-reviewer are complementary:
+Vibe Writing and thesis-reviewer are complementary:
 
 - Vibe Writing governs the drafting process.
-- pre-submission-reviewer audits the final draft.
+- thesis-reviewer audits the final draft.
 
 Typical sequence:
 
 1. User drafts Section X in own voice.
 2. User polishes with AI (Vibe Writing Step B).
 3. User verifies sentence by sentence (Step C).
-4. User runs `pre-submission-reviewer` on the completed section.
+4. User runs `thesis-reviewer` on the completed section.
 5. User fixes any MAJOR findings before submission.
-6. Before final submission, `pre-submission-reviewer` runs on the
+6. Before final submission, `thesis-reviewer` runs on the
    full paper with banned-vocabulary and em-dash scan enabled.
 
-Running pre-submission-reviewer without the Vibe Writing discipline
+Running thesis-reviewer without the Vibe Writing discipline
 tends to produce many findings that require rewriting the section
-from scratch; running Vibe Writing without pre-submission-reviewer
+from scratch; running Vibe Writing without thesis-reviewer
 leaves some issues (banned vocabulary, em-dash misuse) for reviewers
 to find first.

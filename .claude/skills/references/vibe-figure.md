@@ -8,7 +8,7 @@
 4. Step 3: Generate first sketch
 5. Step 4: Vectorise by hand
 6. What AI cannot do
-7. Integration with figure-designer
+7. Integration with mermaid-renderer
 
 ## 1. Why Vibe Figure works
 
@@ -94,7 +94,7 @@ by hand in a vector tool:
   actual experiment outputs. The script lives in the repository
   and regenerates on data updates.
 
-Quality control (see `figure-designer`'s `design-rules.md`):
+Quality control (see `mermaid-renderer`'s `design-rules.md`):
 
 - Vector format export.
 - Font size at least 8pt post-scaling.
@@ -116,16 +116,16 @@ AI-generated figures in their current state cannot:
 Plan for AI-assistance in ideation and drafting, not in final
 production. Every final figure is the user's work.
 
-## 7. Integration with figure-designer
+## 7. Integration with mermaid-renderer
 
-This skill orchestrates the workflow; `figure-designer` handles
+This skill orchestrates the workflow; `mermaid-renderer` handles
 the individual figure design decision.
 
 Typical sequence:
 
-1. `vibe-research-workflow` (this skill, figure-mode): plan the
+1. `thesis-writer` (this skill, figure-mode): plan the
    figure-production session.
-2. `figure-designer`: for each figure, decide paradigm, layout,
+2. `mermaid-renderer`: for each figure, decide paradigm, layout,
    labelling, tool, and run the audit.
 3. Execute the four-step flow above for each figure.
 4. Integrate back into the paper.

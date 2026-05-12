@@ -23,8 +23,10 @@ Background + Running Example
 ```
 
 Every arrow must hold. If any arrow breaks, the Introduction reads as
-a list of disjointed claims rather than a single argument. Reviewers
-notice this and score down.
+a list of disjointed claims rather than a single argument.
+
+This flowchart applies to Chapter 1 (绪论) of the graduation thesis.
+Use `thesis-writer` to draft the content.
 
 ## 2. Paragraph 1: Background and Motivation
 

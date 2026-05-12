@@ -176,9 +176,8 @@ wrong. Fix before proceeding.
 
 ### Detection rule
 
-Run the contribution-patterns audit from the `intro-drafter` skill's
-`references/contribution-patterns.md` (cited cross-skill in prose,
-not as a reference pointer).
+Verify each contribution is specific, maps to a section, and is
+not vague language like "extensive experiments".
 
 ## 8. Methodology-outline derivation
 
@@ -192,3 +191,4 @@ by:
 
 This skeleton is what the author uses to draft the methodology
 section; it is handed off to the writer after this skill completes.
+Use `thesis-writer` to draft the actual chapter content.
