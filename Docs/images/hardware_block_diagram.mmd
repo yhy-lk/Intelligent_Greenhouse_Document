@@ -1,11 +1,45 @@
 %%{init: {'theme': 'base'}}%%
 graph TD
-    ESP32[ESP32-S3 主节点]
-    ESP32 --> TFT[TFT触摸屏]
-    ESP32 --> AUDIO[音频模块]
-    ESP32 --> TJA1[TJA1051T]
-    TJA1 --> CAN[CAN总线 1Mbps]
-    CAN --> TJA2[TJA1051T]
-    TJA2 --> STM32[STM32F407 从节点]
-    STM32 --> SENSORS[传感器模块]
-    STM32 --> ACTUATORS[执行器模块]
+    CLOUD["云端服务<br/>DeepSeek Chat API · 百度 STT/TTS"]
+
+    ESP32["ESP32-S3 主节点<br/>LVGL GUI · 语音助手 · WiFi · AI 推理"]
+
+    subgraph ESP32_PERIPH[" "]
+        WIFI["WiFi 模块<br/>多凭证自动切换"]
+        TFT["ILI9341 TFT 240×320<br/>8-bit 8080 并行总线"]
+        MIC["INMP441 麦克风<br/>I2S 16kHz 32-bit"]
+        AMP["MAX98357A 功放<br/>I2S 驱动扬声器"]
+        STATUS_LED["WS2812B 状态灯 ×12<br/>呼吸/加载/告警灯效"]
+    end
+
+    CANBUS["CAN 总线 1Mbps 双绞线"]
+
+    STM32["STM32F407VET6 从节点<br/>传感器采集 · 迟滞调度 · PID 闭环 · 执行器驱动"]
+
+    subgraph SENSORS[" "]
+        SHT30["SHT30 温湿度<br/>I2C2"]
+        BH1750["BH1750 光照<br/>I2C2"]
+        SOIL["土壤湿度<br/>ADC1 PC1"]
+    end
+
+    subgraph ACTUATORS[" "]
+        FAN["DC 通风风扇<br/>TB6612+编码器+PID"]
+        PUMP["水泵<br/>继电器 PD13"]
+        HUM["加湿器<br/>继电器 PE4"]
+        SERVO["MG995 舵机<br/>TIM5 50Hz"]
+        LED["WS2812B 补光灯 ×25<br/>TIM4 DMA"]
+    end
+
+    CLOUD -.-|"HTTP/WiFi"| ESP32
+    ESP32 ---|"TWAI"| CANBUS
+    CANBUS ---|"bxCAN PB8/PB9"| STM32
+    ESP32 --- ESP32_PERIPH
+    STM32 --- SENSORS
+    STM32 --- ACTUATORS
+
+    style ESP32 fill:#e8e8e8,stroke:#333
+    style STM32 fill:#e8e8e8,stroke:#333
+    style CANBUS fill:#fff8e1,stroke:#999
+    style CLOUD fill:#f0f4ff,stroke:#666
+    style SENSORS fill:#f5f5f5,stroke:#666
+    style ACTUATORS fill:#f5f5f5,stroke:#666

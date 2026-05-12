@@ -4,7 +4,7 @@
 
 `repomix-output.xml` 包含项目全部源代码（ESP32 交互层 + STM32 控制层），撰写涉及模块实现的内容时**必须先查阅对应代码**。
 
-详细写作流程由 Skills 承载：`thesis-writer`（论文正文写作）、`abstract-writer`（英文摘要）、`mermaid-renderer`（图表渲染）、`thesis-reviewer`（论文审查）。
+详细写作流程由 Skills 承载：`thesis-writer`（论文正文写作）、`abstract-writer`（英文摘要）、`mermaid-renderer`（图表渲染）、`thesis-reviewer`（论文审查）、`diagram-prompt-generator`（画图提示词）、`image-cropper`（AI 图片水印裁剪）。
 
 ---
 

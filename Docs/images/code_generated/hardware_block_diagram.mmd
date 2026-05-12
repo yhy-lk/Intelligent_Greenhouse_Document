@@ -1,0 +1,35 @@
+%%{init: {'theme': 'base'}}%%
+graph TD
+    CLOUD["云端服务<br/>DeepSeek Chat API · 百度 STT/TTS"]
+    ESP32["ESP32-S3 主节点<br/>LVGL GUI · 语音助手 · WiFi · AI 推理"]
+    CANBUS["CAN 总线 1Mbps 双绞线"]
+    STM32["STM32F407VET6 从节点<br/>传感器采集 · 迟滞调度 · PID 闭环 · 执行器驱动"]
+
+    CLOUD -.-|"HTTP/WiFi"| ESP32
+    ESP32 ---|"TWAI"| CANBUS
+    CANBUS ---|"bxCAN"| STM32
+
+    subgraph ESP32_PERIPH["ESP32 外设"]
+        direction LR
+        WIFI["WiFi"] --> TFT["TFT 240×320"] --> MIC["麦克风 I2S"] --> AMP["功放 I2S"] --> STATUS_LED["状态灯 ×12"]
+    end
+    ESP32 --- ESP32_PERIPH
+
+    subgraph SENSORS["传感器 I2C2 + ADC1"]
+        direction LR
+        SHT30["SHT30<br/>温湿度"] --> BH1750["BH1750<br/>光照"] --> SOIL["土壤湿度<br/>ADC1 PC1"]
+    end
+    STM32 --- SENSORS
+
+    subgraph ACTUATORS["执行器 PWM + GPIO"]
+        direction LR
+        FAN["DC风扇<br/>TB6612+PID"] --> PUMP["水泵<br/>PD13"] --> HUM["加湿器<br/>PE4"] --> SERVO["舵机<br/>TIM5"] --> LED["补光灯 ×25<br/>TIM4 DMA"]
+    end
+    STM32 --- ACTUATORS
+
+    style ESP32 fill:#e8e8e8,stroke:#333
+    style STM32 fill:#e8e8e8,stroke:#333
+    style CANBUS fill:#fff8e1,stroke:#999
+    style CLOUD fill:#f0f4ff,stroke:#666
+    style SENSORS fill:#f5f5f5,stroke:#666
+    style ACTUATORS fill:#f5f5f5,stroke:#666
