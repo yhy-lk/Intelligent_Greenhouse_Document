@@ -12,7 +12,7 @@ ESP32-S3 主节点作为整个智能温室系统的交互中枢，承担 GUI 显
 
 **图 5-2 ESP32 主节点分层软件架构**
 
-![图 5-2 ESP32 主节点分层软件架构](../images/code_generated/esp32_layered_architecture.png)
+![图 5-2 ESP32 主节点分层软件架构](../images/ai_generated/cropped/esp32_layered_architecture.png)
 
 ## 5.2 多节点数字孪生状态管理
 

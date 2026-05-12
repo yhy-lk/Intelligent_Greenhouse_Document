@@ -6,7 +6,7 @@
 
 **图 3-1 系统硬件总体框图**
 
-![图 3-1 系统硬件总体框图](../images/code_generated/hardware_block_diagram.png)
+![图 3-1 系统硬件总体框图](../images/ai_generated/cropped/hardware_block_diagram.png)
 
 ## 3.2 主控芯片选型
 
