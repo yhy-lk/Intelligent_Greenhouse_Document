@@ -48,7 +48,7 @@ $$H_{soil} = \text{clamp}\left(\frac{4000 - D_{ADC}}{4000 - 1000} \times 100,\ 0
 
 ## 3.5 通信与电源模块设计
 
-CAN 总线选用 NXP TJA1051T 高速 CAN 收发器[@tja1051datasheet]，支持最高 1 Mbps 速率。ESP32 通过 TWAI（GPIO48/GPIO47）、STM32 通过 bxCAN（PB9/PB8）分别连接收发器。CAN 2.0A 标准帧的 11-bit 标识符划分为 4-bit 功能码与 7-bit 节点 ID，构建公式为 $\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$，功能码分为 Alert、TimeSync、WriteSet 和 Report 四类。
+CAN 总线选用 NXP TJA1051T 高速 CAN 收发器[@tja1051datasheet]，支持最高 1 Mbps 速率。ESP32 通过 TWAI（GPIO48/GPIO47）、STM32 通过 bxCAN（PB9/PB8）分别连接收发器。CAN 2.0A 标准帧的 11-bit 标识符结构与功能码分类按第 2 章 2.2.2 节设计，硬件层面需在总线两端各并联 120Ω 终端电阻以匹配阻抗。
 
 音频模块仅部署在 ESP32 主节点，由 INMP441 麦克风和 MAX98357A 功放组成[@inmp441datasheet][@max98357datasheet]，通过 I2S 总线全双工运行，连接如图 3-3 所示。
 
