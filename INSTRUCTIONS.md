@@ -301,20 +301,26 @@ Docs/
 
 #### Pandoc 编译命令
 
+> **【关键】工作目录必须为 `Docs/chapters/`**：Markdown 中的图片使用 `../images/` 相对路径，这是相对于章节文件所在目录的。Pandoc 解析相对路径基于当前工作目录，因此**必须先 `cd` 到 `Docs/chapters/`** 再执行编译命令。从项目根目录运行会导致所有图片路径解析失败，生成的 docx 中图片全部丢失。
+
 ```bash
+# 切换到章节目录（必须！）
+cd Docs/chapters
+
 # 单章编译（含引用处理）
-pandoc Docs/chapters/Chapter4_STM32控制层软件设计.md \
+pandoc Chapter4_STM32控制层软件设计.md \
   --citeproc \
-  --bibliography=Docs/references.bib \
-  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
-  -o Docs/output/Chapter4.docx
+  --bibliography=../references.bib \
+  --csl=../csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o ../output/Chapter4.docx
 
 # 多章合并编译
-pandoc Docs/chapters/Chapter1_绪论.md Docs/chapters/Chapter2_需求分析与总体设计.md \
+pandoc Chapter1_绪论.md Chapter2_需求分析与总体设计.md Chapter3_硬件电路设计.md \
+  Chapter4_STM32控制层软件设计.md Chapter5_ESP32交互层软件设计.md Chapter6_总结与展望.md \
   --citeproc \
-  --bibliography=Docs/references.bib \
-  --csl=Docs/csl/china-national-standard-gb-t-7714-2015-numeric.csl \
-  -o Docs/output/Thesis_Draft.docx
+  --bibliography=../references.bib \
+  --csl=../csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  -o ../output/Thesis_Draft.docx
 ```
 
 > **注意**：Pandoc 默认不支持在 docx 中嵌入 SVG 图片。因此 Markdown 正文中必须引用 `.png` 文件（由 `mmdc -s 4` 生成），详见准则五。
