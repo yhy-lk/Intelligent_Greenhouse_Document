@@ -55,6 +55,9 @@ Docs/output/*.pdf
 
 # Claude 配置
 
+# Supervisor-Skills (外部工具，不应纳入版本控制)
+Supervisor-Skills/
+
 # 系统文件
 desktop.ini
 ehthumbs.db
