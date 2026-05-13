@@ -72,7 +72,7 @@
 
 ## Pandoc 编译
 
-**工作目录必须为 `Docs/chapters/`**（图片使用 `../images/code_generated/` 相对路径）：
+**工作目录必须为 `Docs/chapters/`**（图片使用 `../images/ai_generated/cropped//` 相对路径）：
 
 ```bash
 cd Docs/chapters

@@ -1,0 +1,130 @@
+================================================================================
+图 4-3 迟滞调度器控制逻辑 — AI 画图提示词（中英双语）
+================================================================================
+
+当前图问题：线性 11 节点流程图只是代码的翻译，未体现：
+  1. 四个控制维度(温度/湿度/土壤/光照)的并行独立性
+  2. 迟滞阈值机制（ON/OFF margin 不同）
+  3. 风扇由温度 AND 湿度通过 OR 逻辑联合驱动
+  4. 风扇转速的比例计算（1200-4500 RPM）
+  5. 补光灯的渐进步进/步退（非 bang-bang）
+  6. 状态反馈（上一轮输出影响本轮的迟滞判断）
+
+================================================================================
+AI 绘图提示词（中文，推荐用于 Nano Banana / 即梦等工具）
+================================================================================
+
+绘制一张学术论文用的黑白技术流程图，展示温室自动调度器的迟滞控制逻辑，具体要求如下：
+
+【整体布局】
+横向布局，从左到右分为三个区域：传感器输入区（左）、控制逻辑区（中）、执行器输出区（右）。
+
+【传感器输入区（左侧）】
+四个并列的矩形框，分别标注：
+  - "空气温度 (Temp)"
+  - "空气湿度 (AirHum)"
+  - "土壤湿度 (SoilHum)"
+  - "光照强度 (Lux)"
+每个框下方标注其对应的目标值来源："目标值来自 GLOBAL_STATE.target"。
+
+【控制逻辑区（中间）—— 核心】
+四条并行水平通道，每条对应一个控制维度：
+
+通道 1（温度→风扇，迟滞高侧）：
+  - 框中文字："迟滞控制 (High-Side)"
+  - 阈值标注："开: >T+1.0°C / 关: ≤T+0.3°C"
+  - 箭头指向右侧的风扇 OR 合并节点
+
+通道 2（空气湿度→风扇，迟滞高侧）：
+  - 框中文字："迟滞控制 (High-Side)"
+  - 阈值标注："开: >H+8% / 关: ≤H+3%"
+  - 箭头同样指向风扇 OR 合并节点
+  - 额外分支向下："迟滞控制 (Low-Side)" 阈值:"开: <H-5% / 关: ≥H-2%"，箭头指向加湿器
+
+通道 3（土壤湿度→水泵，迟滞低侧）：
+  - 框中文字："迟滞控制 (Low-Side)"
+  - 阈值标注："开: <S-5% / 关: ≥S-2%"
+  - 箭头指向水泵
+
+通道 4（光照→补光灯，渐进步进）：
+  - 框中文字："比例 + 步进控制"
+  - 逻辑标注："deficit = 目标 - 当前; PWM = deficit/目标×100%, 每次±1步, ≥8%"
+  - 箭头指向补光灯
+
+中间区顶部加一个条件判断菱形："控制模式 = Auto?" → 否 → 跳过本轮（指向右下方"输出全零"节点）。
+
+【风扇 OR 合并与转速计算】
+通道 1 和通道 2 的箭头汇入一个 OR 逻辑节点（用 ⊕ 或 "OR" 标注），该节点箭头指向风扇。
+在下箭头旁标注："转速 = 1200 + 3300 × max(TempRatio, HumiRatio)"。
+TempRatio = (Temp-Target)/8 截断于[0,1]，HumiRatio = (Humi-Target)/30 截断于[0,1]。
+
+【执行器输出区（右侧）】
+四个并列的执行器图标/矩形框：
+  - "通风风扇 (1200~4500 RPM)"
+  - "加湿器 (开关)"
+  - "水泵 (开关)"
+  - "LED补光灯 (PWM 8~100%)"
+
+所有执行器箭头汇聚到最右侧一个矩形："写入 GLOBAL_STATE.target"。
+
+【状态反馈】
+在图中用一条虚线箭头从"写入 GLOBAL_STATE.target"侧回到控制逻辑区，标注"保留上一轮状态影响下一轮迟滞判断 (500ms 周期)"。
+
+【风格要求】
+- 黑白线稿风格，适合学术论文黑白印刷
+- 使用矩形框和箭头，简洁清晰，无装饰性元素
+- 中文字体标注，线条粗细均匀
+- 节点不超过 10 个主节点，避免过度拥挤
+- 图片宽高比约 16:9 或 4:3
+
+================================================================================
+AI Drawing Prompt (English, for Midjourney / DALL-E / etc.)
+================================================================================
+
+A clean black-and-white technical flow diagram for an academic paper, illustrating
+the hysteresis-based control logic of a greenhouse automation dispatcher.
+
+Layout: Horizontal, three zones — Sensor Inputs (left) → Control Logic (center) →
+Actuator Outputs (right).
+
+LEFT ZONE: Four parallel sensor blocks labeled "Air Temperature", "Air Humidity",
+"Soil Humidity", "Light Intensity", each with a label "Read from GLOBAL_STATE.current".
+
+CENTER ZONE: Four parallel horizontal control channels:
+
+Channel 1 (Temperature → Fan, high-side hysteresis):
+  - Box: "Hysteresis (High-Side)" with thresholds "ON: >T+1.0°C / OFF: ≤T+0.3°C"
+  - Arrow to a fan OR merge node
+
+Channel 2 (Air Humidity → Fan + Humidifier, dual hysteresis):
+  - Box 1: "Hysteresis (High-Side)" thresholds "ON: >H+8% / OFF: ≤H+3%", arrow to fan OR node
+  - Box 2 (branching down): "Hysteresis (Low-Side)" thresholds "ON: <H-5% / OFF: ≥H-2%", arrow to humidifier
+
+Channel 3 (Soil Humidity → Water Pump, low-side hysteresis):
+  - Box: "Hysteresis (Low-Side)" thresholds "ON: <S-5% / OFF: ≥S-2%"
+  - Arrow to water pump
+
+Channel 4 (Light Intensity → LED, proportional + step control):
+  - Box: "Proportional + Step Control"
+  - Logic: "deficit = target - current; PWM = deficit/target×100%, step ±1/cycle, min 8%"
+  - Arrow to LED grow light
+
+At the top of the center zone, a diamond condition: "Auto Mode?" → No → "Skip (all outputs off)".
+
+FAN OR MERGE: Channels 1 and 2 converge to an OR gate (⊕ symbol). Arrow to fan
+with annotation: "RPM = 1200 + 3300 × max(TempRatio, HumiRatio)".
+
+RIGHT ZONE: Four parallel actuator blocks:
+  - "Ventilation Fan (1200–4500 RPM)"
+  - "Humidifier (ON/OFF)"
+  - "Water Pump (ON/OFF)"
+  - "LED Light (PWM 8–100%)"
+
+All converge to a rightmost block: "Write to GLOBAL_STATE.target".
+
+STATE FEEDBACK: A dashed arrow looping back from the write block to the control
+logic, labeled "Previous state feedback for hysteresis (500 ms cycle)".
+
+Style: Clean monochrome line-art, no color, suitable for black-and-white academic
+printing. Use rectangular boxes and straight arrows, no decorative elements.
+Maximum ~10 primary nodes. Aspect ratio ~16:9 or 4:3.

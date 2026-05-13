@@ -82,7 +82,7 @@ description: >-
 - 正文中无超过 10 行的代码块。
 - 需要的位置已插入实物照片占位符。
 - 参考文献使用 `[@key]` 语法（非手动 `[1]`）。
-- 图片路径使用 `../images/code_generated/` 相对路径。
+- 图片路径使用 `../images/ai_generated/cropped//` 相对路径。
 
 ## 严重性分类
 

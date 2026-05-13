@@ -76,10 +76,10 @@ CAN 总线选用 NXP TJA1051T 高速 CAN 收发器[@tja1051datasheet]，支持�
 
 **图 3-5 音频模块 I2S 连接图**
 
-![图 3-5 音频模块 I2S 连接图](../images/code_generated/i2s_audio_module.png)
+![图 3-5 音频模块 I2S 连接图](../images/ai_generated/cropped//i2s_audio_module.png)
 
 系统采用 USB 供电，板载 LDO 将 5 V 转换为 3.3 V，传感器由 3.3 V 供电，执行器由 5 V 供电。电源分配如图 3-6 所示。
 
 **图 3-6 系统电源分配框图**
 
-![图 3-6 系统电源分配框图](../images/code_generated/power_distribution.png)
+![图 3-6 系统电源分配框图](../images/ai_generated/cropped//power_distribution.png)
