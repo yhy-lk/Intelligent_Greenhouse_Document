@@ -34,7 +34,11 @@
 
 ### 2.2.2 CAN 总线多节点通信架构
 
-主从节点间通信基于 CAN 2.0A 标准帧，采用总线型拓扑，波特率 1 Mbps。11-bit 标识符划分为 4-bit 功能码与 7-bit 节点 ID，构建公式为 $\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$，功能码分为 Alert、TimeSync、WriteSet 和 Report 四类。详细帧格式与参数字典设计将在第 3 章阐述。
+主从节点间通信基于 CAN 2.0A 标准帧，采用总线型拓扑，波特率 1 Mbps。11-bit 标识符划分为 4-bit 功能码与 7-bit 节点 ID，构建公式为 $\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$。功能码定义 4 类报文：Alert（0x0，异常告警）、TimeSync（0x1，时间同步）、WriteSet（0x2，参数下发）、Report（0x3，数据上报），帧格式与参数字典如图 2-5 所示。数据帧载荷采用"1 字节索引 + 4 字节数据"格式，参数索引按系统级（0x00–0x0F）、开关执行器（0x10–0x2F）、传感器（0x30–0x4F）、高级控制（0x50–0x5F）四组划分，温度与湿度等浮点量采用 ×100 缩放传输，其余参数直接传输。
+
+**图 2-5 CAN 2.0A 帧格式与参数字典**
+
+![图 2-5 CAN 2.0A 帧格式与参数字典](../images/ai_generated/cropped/can_frame_format.png)
 
 ### 2.2.3 分层软件架构
 

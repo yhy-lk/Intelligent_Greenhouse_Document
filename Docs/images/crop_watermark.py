@@ -125,7 +125,24 @@ def main():
     else:
         img_path = Path(args[0])
         if not img_path.is_absolute():
-            img_path = BASE_DIR / img_path
+            # 如果路径以 original/ 开头，去掉前缀，在 ORIGINAL_DIR 中查找
+            if img_path.parts[0] == "original":
+                candidate = ORIGINAL_DIR / Path(*img_path.parts[1:])
+                if candidate.exists():
+                    img_path = candidate
+                else:
+                    # 尝试原始路径
+                    if not img_path.exists():
+                        img_path = BASE_DIR / img_path
+            # 首先尝试相对于当前目录
+            elif img_path.exists():
+                pass  # 找到文件
+            # 然后尝试相对于 ORIGINAL_DIR
+            elif (ORIGINAL_DIR / img_path).exists():
+                img_path = ORIGINAL_DIR / img_path
+            # 最后尝试相对于 BASE_DIR
+            else:
+                img_path = BASE_DIR / img_path
         if not img_path.exists():
             print(f"文件不存在: {img_path}")
             return
