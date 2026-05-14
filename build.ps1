@@ -34,8 +34,6 @@ pandoc $files `
     --bibliography=../references.bib `
     --csl=../csl/china-national-standard-gb-t-7714-2015-numeric.csl `
     --reference-doc="$outputDir\reference_docx.docx" `
-    --toc `
-    --toc-depth=2 `
     -o "$outputDir\thesis.docx"
 
 Write-Host "编译完成 → $outputDir\thesis.docx" -ForegroundColor Green
