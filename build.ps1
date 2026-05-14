@@ -1,9 +1,13 @@
-# 智能温室毕业论文 Pandoc 编译脚本
+﻿# 智能温室毕业论文 Pandoc 编译脚本
 # 用法：在项目根目录执行 powershell -ExecutionPolicy Bypass -File build.ps1
 # 输出：Docs/output/thesis.docx
 
+# 1. 解决控制台输出显示乱码
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+# 2. 解决传递给外部程序 (Pandoc) 参数时的中文乱码 (关键修复)
+$OutputEncoding = [System.Text.Encoding]::UTF8 
 $ErrorActionPreference = "Stop"
+
 Set-Location "$PSScriptRoot\Docs\chapters"
 
 $outputDir = "..\output"
@@ -34,4 +38,4 @@ pandoc $files `
     --toc-depth=2 `
     -o "$outputDir\thesis.docx"
 
-Write-Host "编译完成 → $outputDir\thesis.docx"
+Write-Host "编译完成 → $outputDir\thesis.docx" -ForegroundColor Green
