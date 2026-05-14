@@ -37,3 +37,5 @@ pandoc $files `
     -o "$outputDir\thesis.docx"
 
 Write-Host "编译完成 → $outputDir\thesis.docx" -ForegroundColor Green
+
+cd ..\..

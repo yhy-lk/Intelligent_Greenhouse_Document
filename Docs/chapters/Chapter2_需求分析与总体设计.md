@@ -28,7 +28,9 @@
 
 ![](../images/ai_generated/cropped/system_architecture.png)
 
-**图 2-1 分布式多节点系统总体架构**
+::: {custom-style="表题"}
+图 2-1 分布式多节点系统总体架构
+:::
 
 主节点承担交互层功能（图形界面、语音助手、AI 推理、网络管理），从节点承担控制层功能（传感器采集、自动调度、执行器驱动）[@esp32techref]。
 
@@ -42,7 +44,9 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
 ![](../images/ai_generated/cropped/can_frame_format.png)
 
-**图 2-2 CAN 2.0A 帧格式与参数字典**
+::: {custom-style="表题"}
+图 2-2 CAN 2.0A 帧格式与参数字典
+:::
 
 ### 2.2.3 分层软件架构
 
@@ -50,11 +54,15 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
 ![](../images/ai_generated/cropped/esp32_layered_architecture.png)
 
-**图 2-3 ESP32 主节点分层软件架构**
+::: {custom-style="表题"}
+图 2-3 ESP32 主节点分层软件架构
+:::
 
 ![](../images/ai_generated/cropped/stm32_layered_architecture.png)
 
-**图 2-4 STM32 从节点分层软件架构**
+::: {custom-style="表题"}
+图 2-4 STM32 从节点分层软件架构
+:::
 
 ## 2.3 控制策略设计
 
@@ -62,7 +70,9 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
 ![](../images/ai_generated/cropped/control_strategy.png)
 
-**图 2-5 三种控制模式逻辑关系**
+::: {custom-style="表题"}
+图 2-5 三种控制模式逻辑关系
+:::
 
 手动控制模式下，用户通过主节点触摸屏直接操控从节点执行器，操作通过 CAN 总线下发，适用于设备调试和紧急停机。
 
