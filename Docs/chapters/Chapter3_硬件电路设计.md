@@ -36,7 +36,7 @@
 
 系统包含两块显示屏，分别部署在主节点和从节点。
 
-主节点搭载 ILI9341 TFT 彩屏（240×320 像素，RGB565 格式），通过 8-bit 8080 并行总线与 ESP32-S3 连接，数据总线占用 GPIO 4～11，控制信号包括 WR（GPIO 12）、RS/DC（GPIO 13）、CS（GPIO 14）、RST（GPIO 15），背光由 GPIO 16 通过 PWM 调节亮度。并口写入频率配置为 20 MHz，满足 LVGL 界面刷新需求。此外，屏幕集成 SPI 接口触摸控制器（SCLK: GPIO 17, MOSI: GPIO 38, MISO: GPIO 18, CS: GPIO 21, INT: GPIO 39）。显示模块引脚配置如表 3-3 所示。
+主节点搭载 ILI9341 TFT 彩屏（240×320 像素，RGB565 格式），通过 8-bit 8080 并行总线与 ESP32-S3 连接，数据总线占用 GPIO 4～11，控制信号包括 WR（GPIO 12）、RS/DC（GPIO 13）、CS（GPIO 14）、RST（GPIO 15），背光由 GPIO 16 通过 PWM 调节亮度。并口写入频率配置为 20 MHz，满足 LVGL 界面刷新需求。此外，屏幕集成 SPI 接口触摸控制器（SCLK: GPIO 17, MOSI: GPIO 38, MISO: GPIO 18, CS: GPIO 21, INT: GPIO 39）。显示模块引脚配置如表 3-2 所示。
 
 **表 3-2 ILI9341 显示模块引脚配置**
 
@@ -76,14 +76,14 @@
 
 CAN 总线选用 NXP TJA1051T 高速 CAN 收发器[@tja1051datasheet]，支持最高 1 Mbps 速率。ESP32 通过 TWAI（GPIO48/GPIO47）、STM32 通过 bxCAN（PB9/PB8）分别连接收发器。CAN 2.0A 标准帧的 11-bit 标识符结构与功能码分类按第 2 章 2.2.2 节设计，硬件层面需在总线两端各并联 120Ω 终端电阻以匹配阻抗。
 
-音频模块仅部署在 ESP32 主节点，由 INMP441 麦克风和 MAX98357A 功放组成[@inmp441datasheet][@max98357datasheet]，通过 I2S 总线全双工运行，连接如图 3-5 所示。
+音频模块仅部署在 ESP32 主节点，由 INMP441 麦克风和 MAX98357A 功放组成[@inmp441datasheet][@max98357datasheet]，通过 I2S 总线全双工运行，连接如图 3-3 所示。
 
 ![](../images/ai_generated/cropped/i2s_audio_module.png)
 
-**图 3-5 音频模块 I2S 连接图**
+**图 3-3 音频模块 I2S 连接图**
 
-系统采用 USB 供电，板载 LDO 将 5 V 转换为 3.3 V，传感器由 3.3 V 供电，执行器由 5 V 供电。电源分配如图 3-6 所示。
+系统采用 USB 供电，板载 LDO 将 5 V 转换为 3.3 V，传感器由 3.3 V 供电，执行器由 5 V 供电。电源分配如图 3-4 所示。
 
 ![](../images/ai_generated/cropped/power_distribution.png)
 
-**图 3-6 系统电源分配框图**
+**图 3-4 系统电源分配框图**
