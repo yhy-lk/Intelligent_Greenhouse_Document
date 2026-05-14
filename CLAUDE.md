@@ -72,7 +72,9 @@
 
 ## Pandoc 编译
 
-**工作目录必须为 `Docs/chapters/`**（图片使用 `../images/ai_generated/cropped//` 相对路径）：
+**工作目录必须为 `Docs/chapters/`**（图片使用 `../images/ai_generated/cropped/` 相对路径）。
+
+全文编译运行 `.\build.ps1`，输出 `Docs/output/thesis.docx`。模板文件：`Docs/output/reference_docx.docx`。单章编译示例：
 
 ```bash
 cd Docs/chapters
@@ -80,6 +82,7 @@ pandoc Chapter4_STM32控制层软件设计.md \
   --citeproc \
   --bibliography=../references.bib \
   --csl=../csl/china-national-standard-gb-t-7714-2015-numeric.csl \
+  --reference-doc=../output/reference_docx.docx \
   -o ../output/Chapter4.docx
 ```
 

@@ -82,7 +82,9 @@
       "Bash(echo \"![测试PNG]\\(Docs/images/architecture.png\\)\")",
       "Bash(pandoc /tmp/test_png.md -o /tmp/test_png.docx)",
       "Bash(pandoc \"Docs/chapters/Section_4.3_PID.md\" -o \"Docs/output/Section_4.3_PID.docx\" --mathml)",
-      "Bash(python count_chars.py)"
+      "Bash(python count_chars.py)",
+      "Skill(thesis-writer)",
+      "Skill(thesis-writer:*)"
     ],
     "additionalDirectories": [
       "D:\\Tools\\.agent-browser\\tmp\\screenshots"

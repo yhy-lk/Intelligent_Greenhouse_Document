@@ -8,6 +8,12 @@
 
 **图 3-1 系统硬件总体框图**
 
+图 3-2 为系统实物照片，展示了 ESP32-S3 主节点、STM32F407 从节点、CAN 总线连接以及各传感器与执行器的实际接线情况。
+
+![](../images/physical_photos/hardware_setup_overview.jpg)
+
+**图 3-2 系统硬件实物照片**
+
 ## 3.2 主控芯片选型
 
 主节点选用 ESP32-S3（双核 Xtensa LX7，240 MHz，8 MB PSRAM），内置 WiFi 可直接联网调用 DeepSeek API 和百度语音服务，双核架构使 Core 0 运行 WiFi 协议栈、Core 1 运行 LVGL 界面[@esp32techref][@hercog2023esp32]。从节点选用 STM32F407VET6（ARM Cortex-M4F，168 MHz），硬件 FPU 单周期完成浮点运算，适合 PID 等实时控制任务[@stm32f407datasheet][@hu2014automatic]。两款芯片均内置 CAN 控制器（TWAI/bxCAN），无需外挂 MCP2515。
@@ -25,8 +31,6 @@
 | 温湿度传感器 | SHT30 | I2C2，100 kHz | PB10 (SCL), PB11 (SDA) |
 | 光照传感器 | BH1750 | I2C2，共用总线 | PB10 (SCL), PB11 (SDA) |
 | 土壤湿度传感器 | — | ADC1 | PC1 |
-
-> 💡 [人类作者请注意：请在此处插入一张传感器模块实物接线照片。]
 
 ## 3.4 显示模块设计
 
