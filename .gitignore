@@ -52,6 +52,8 @@ Docs/output/*.pdf
 *.temp
 *.bak
 *.backup
+~$*.doc
+~$*.docx
 
 # Claude 配置
 
