@@ -26,8 +26,9 @@
 
 为解决传统单 MCU 架构在扩展性与实时性方面的不足，本系统采用"ESP32-S3 主节点 + 多个 STM32F407 从节点"的分布式多节点架构，将系统功能划分为交互层与控制层两个层次，通过 CAN 总线实现跨节点的数据交换与协调控制。系统总体架构如图 2-1 所示。
 
+::: {custom-style="图片"}
 ![](../images/ai_generated/cropped/system_architecture.png)
-
+:::
 ::: {custom-style="表题"}
 图 2-1 分布式多节点系统总体架构
 :::
@@ -42,8 +43,9 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
 其中 $\text{func\_code}$ 为 4-bit 功能码，$\text{node\_id}$ 为 7-bit 节点地址。功能码定义 4 类报文：Alert（0x0，异常告警）、TimeSync（0x1，时间同步）、WriteSet（0x2，参数下发）、Report（0x3，数据上报），帧格式与参数字典如图 2-2 所示。数据帧载荷采用"1 字节索引 + 4 字节数据"格式，参数索引按系统级（0x00–0x0F）、开关执行器（0x10–0x2F）、传感器（0x30–0x4F）、高级控制（0x50–0x5F）四组划分，温度与湿度等浮点量采用 ×100 缩放传输，其余参数直接传输。
 
+::: {custom-style="图片"}
 ![](../images/ai_generated/cropped/can_frame_format.png)
-
+:::
 ::: {custom-style="表题"}
 图 2-2 CAN 2.0A 帧格式与参数字典
 :::
@@ -52,24 +54,28 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
 主节点与从节点分别采用不同的分层软件架构，如图 2-3 和图 2-4 所示。两者虽语言和运行时不同，但均遵循"分层解耦、逐层调用"的设计原则，具体实现将在第四、五章详细展开。
 
+::: {custom-style="图片"}
 ![](../images/ai_generated/cropped/esp32_layered_architecture.png)
-
+:::
 ::: {custom-style="表题"}
 图 2-3 ESP32 主节点分层软件架构
 :::
 
+::: {custom-style="图片"}
 ![](../images/ai_generated/cropped/stm32_layered_architecture.png)
-
+:::
 ::: {custom-style="表题"}
 图 2-4 STM32 从节点分层软件架构
 :::
 
-## 2.3 控制策略设计
-
+::: {custom-style="图片"}
+![](../images/ai_generated/cropped/control_strategy.png)
+:::
 本系统设计了三种控制模式，逻辑关系如图 2-5 所示。
 
+::: {custom-style="图片"}
 ![](../images/ai_generated/cropped/control_strategy.png)
-
+:::
 ::: {custom-style="表题"}
 图 2-5 三种控制模式逻辑关系
 :::
