@@ -1,0 +1,132 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="tymSHzZH8N2w6atINKTa">
+    <mxGraphModel dx="1084" dy="677" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-1" parent="1" style="rhombus;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="三种控制模式" vertex="1">
+          <mxGeometry height="50" width="150" x="308" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-2" parent="1" style="rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="GUI 操作" vertex="1">
+          <mxGeometry height="30" width="80" x="150" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-3" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="用户通过主节点触摸屏&#xa;发出控制指令" vertex="1">
+          <mxGeometry height="50" width="130" x="125" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="经 CAN 总线&#xa;WriteSet 帧下发" vertex="1">
+          <mxGeometry height="50" width="100" x="140" y="308" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-5" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=none;strokeColor=none;fontColor=light-dark(#333333,#cccccc);" value="此路径为直线直达，&#xa;无中间判断环节，适用&#xa;于设备调试与紧急停机" vertex="1">
+          <mxGeometry height="60" width="150" x="100" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-6" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="从节点执行器 (风扇/水泵/加湿器/补光灯/舵机)" vertex="1">
+          <mxGeometry height="30" width="260" x="250" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-7" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="目标范围下发" vertex="1">
+          <mxGeometry height="30" width="100" x="330" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-8" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="主节点经 CAN WriteSet 帧&#xa;将阈值参数下发至从节点" vertex="1">
+          <mxGeometry height="50" width="150" x="305" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-9" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="从节点本地&#39;迟滞调度器&#39;根据传感器&#xa;实时数据与上下阈值进行滞回比较&#xa;(以温度为例：开启→关闭迟滞 0.3℃，&#xa;关闭→开启迟滞 1.0℃，带宽 0.7℃)&#xa;(风扇转速根据温度偏差比例映射至&#xa;1200～4500 RPM 连续调节)" vertex="1">
+          <mxGeometry height="100" width="210" x="275" y="282" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-10" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="控制执行器" vertex="1">
+          <mxGeometry height="30" width="80" x="340" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-11" parent="1" style="rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="语音输入" vertex="1">
+          <mxGeometry height="30" width="79" x="554" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-12" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="STT 语音识别" vertex="1">
+          <mxGeometry height="30" width="100" x="543.5" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-13" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="DeepSeek 大语言模型推理&#xa;(推理前注入实时传感器数据上下文)" vertex="1">
+          <mxGeometry height="52" width="200" x="493.5" y="306" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-14" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="TTS 语音合成回复" vertex="1">
+          <mxGeometry height="30" width="120" x="455" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-15" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="屏幕建议展示" vertex="1">
+          <mxGeometry height="30" width="100" x="593.5" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-16" parent="1" style="ellipse;aspect=fixed;strokeWidth=2;whiteSpace=wrap;fillColor=#fff;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);" value="Ø" vertex="1">
+          <mxGeometry height="26" width="26" x="567.5" y="454" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-17" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=none;strokeColor=none;fontColor=light-dark(#333333,#cccccc);" value="此路径仅支持信息查询与&#xa;建议生成，不连接执行器" vertex="1">
+          <mxGeometry height="60" width="150" x="610" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-18" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-1" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.68;entryX=0.51;entryY=-0.01;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-2" value="手动模式">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-19" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-2" style="curved=1;startArrow=none;endArrow=block;exitX=0.51;exitY=0.99;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-3" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-20" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-3" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-4" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-21" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-4" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=none;exitX=0.45;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-22" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-4" style="curved=1;startArrow=none;endArrow=block;exitX=0.82;exitY=1;entryX=0.26;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-6" value="直接&#xa;驱动">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-23" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-1" style="curved=1;startArrow=none;endArrow=block;exitX=0.48;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-7" value="自动模式">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-24" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-7" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-8" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-25" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-8" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-9" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-26" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-9" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-10" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-27" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-10" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.52;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-28" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-1" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.64;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-11" value="AI 领航模式">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-29" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-11" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-12" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-30" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-12" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-13" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-31" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-13" style="curved=1;startArrow=none;endArrow=block;exitX=0.17;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-14" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-32" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-13" style="curved=1;startArrow=none;endArrow=block;exitX=0.74;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-33" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-14" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0;entryY=0.26;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-34" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-15" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.98;entryY=0.16;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-16" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-35" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-16" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0;exitY=0.67;entryX=0.74;entryY=0;rounded=0;" target="ZRk8aIhdygRFKBK_cnO0-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZRk8aIhdygRFKBK_cnO0-36" edge="1" parent="1" source="ZRk8aIhdygRFKBK_cnO0-16" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=none;exitX=0.55;exitY=0.99;entryX=-0.003;entryY=0.553;rounded=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="ZRk8aIhdygRFKBK_cnO0-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

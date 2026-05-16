@@ -91,14 +91,14 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 主节点与从节点分别采用不同的分层软件架构，如图 2-3 和图 2-4 所示。两者虽语言和运行时不同，但均遵循"分层解耦、逐层调用"的设计原则，具体实现将在第四、五章详细展开。
 
 ::: {custom-style="图片"}
-![](../images/ai_generated/cropped/esp32_layered_architecture.png)
+![](../images/draw/png/esp32_layered_architecture.drawio.png)
 :::
 ::: {custom-style="表题"}
 图 2-3 ESP32 主节点分层软件架构
 :::
 
 ::: {custom-style="图片"}
-![](../images/ai_generated/cropped/stm32_layered_architecture.png)
+![](../images/draw/png/stm32_layered_architecture.drawio.png)
 :::
 ::: {custom-style="表题"}
 图 2-4 STM32 从节点分层软件架构
@@ -107,7 +107,7 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 本系统设计了三种控制模式，逻辑关系如图 2-5 所示。
 
 ::: {custom-style="图片"}
-![](../images/ai_generated/cropped/control_strategy.png)
+![](../images/draw/png/control_strategy.drawio.png)
 :::
 ::: {custom-style="表题"}
 图 2-5 三种控制模式逻辑关系

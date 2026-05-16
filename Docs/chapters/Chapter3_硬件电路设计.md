@@ -7,7 +7,7 @@
 本系统采用分布式多节点架构，由 ESP32-S3 主节点和多个 STM32F407VET6 从节点通过 CAN 总线互联。主节点负责 GUI 显示、语音交互与云端 AI 调用，从节点负责传感器数据采集与执行器控制。系统硬件总体框图如图 3-1 所示。
 
 ::: {custom-style="图片"}
-![](../images/ai_generated/cropped/hardware_block_diagram.png)
+![](../images/draw/png/hardware_block_diagram.drawio.png)
 :::
 ::: {custom-style="表题"}
 图 3-1 系统硬件总体框图
@@ -90,20 +90,28 @@
 
 CAN 总线选用 NXP TJA1051T 高速 CAN 收发器[@tja1051datasheet]，支持最高 1 Mbps 速率。ESP32 通过 TWAI（GPIO48/GPIO47）、STM32 通过 bxCAN（PB9/PB8）分别连接收发器。CAN 2.0A 标准帧的 11-bit 标识符结构与功能码分类按第 2 章 2.2.2 节设计，硬件层面需在总线两端各并联 120Ω 终端电阻以匹配阻抗。
 
-音频模块仅部署在 ESP32 主节点，由 INMP441 麦克风和 MAX98357A 功放组成[@inmp441datasheet][@max98357datasheet]，通过 I2S 总线全双工运行，连接如图 3-3 所示。
+音频模块仅部署在 ESP32 主节点，由 INMP441 麦克风和 MAX98357A 功放组成[@inmp441datasheet][@max98357datasheet]，通过 I2S 总线全双工运行，引脚配置如表 3-4 所示。
 
-::: {custom-style="图片"}
-![](../images/ai_generated/cropped/i2s_audio_module.png)
-:::
 ::: {custom-style="表题"}
-图 3-3 音频模块 I2S 连接图
+表 3-4 音频模块 I2S 引脚配置
 :::
 
-系统采用 USB 供电，板载 LDO 将 5 V 转换为 3.3 V，传感器由 3.3 V 供电，执行器由 5 V 供电。电源分配如图 3-4 所示。
+| 信号 | 引脚 | 说明 |
+|:---|:---|:---|
+| BCLK | GPIO 40 | 共享位时钟 (INMP441 & MAX98357A) |
+| LRCK | GPIO 41 | 共享字时钟 (INMP441 & MAX98357A) |
+| DOUT | GPIO 42 | 数据输出 (MAX98357A DIN) |
+| DIN | GPIO 1 | 数据输入 (INMP441 SD) |
 
-::: {custom-style="图片"}
-![](../images/ai_generated/cropped/power_distribution.png)
-:::
+系统采用 USB 供电，板载 LDO 将 5 V 转换为 3.3 V，传感器与主控由 3.3 V 供电，执行器由 5 V 供电。电源分配如表 3-5 所示。
+
 ::: {custom-style="表题"}
-图 3-4 系统电源分配框图
+表 3-5 系统电源分配
 :::
+
+| 电源轨 | 电压 | 供电组件 |
+|:---|:---|:---|
+| 主电源输入 | 5 V | 系统 USB 接口输入总线 |
+| 执行器电源 | 5 V | 通风风扇、水泵、加湿器、补光灯、遮阳舵机 |
+| 逻辑与通信 | 3.3 V | ESP32-S3 主控、STM32 核心、CAN 收发电路 |
+| 传感器电源 | 3.3 V | 温湿度、光照、土壤湿度传感器，以及麦克风模块 |
