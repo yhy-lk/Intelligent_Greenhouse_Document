@@ -1,0 +1,163 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="MUcgZLMlq6XSIczSqxro">
+    <mxGraphModel dx="1373" dy="857" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="执行器输出区" vertex="1">
+          <mxGeometry height="160" width="580" x="132.5" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="控制逻辑区" vertex="1">
+          <mxGeometry height="387" width="750" x="50" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-3" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="传感器输入区 &#xa;(目标值均来自 GLOBAL_STATE.target)" vertex="1">
+          <mxGeometry height="100" width="755" x="45" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="空气温度 Temp" vertex="1">
+          <mxGeometry height="30" width="150" x="60" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-5" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="空气湿度 AirHum" vertex="1">
+          <mxGeometry height="30" width="150" x="250" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-6" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="土壤湿度 SoilHum" vertex="1">
+          <mxGeometry height="30" width="150" x="430" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-7" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="光照强度 Lux" vertex="1">
+          <mxGeometry height="30" width="150" x="620" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-8" parent="1" style="rhombus;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="控制模式 == Auto?" vertex="1">
+          <mxGeometry height="150" width="150" x="60" y="267" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-12" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="空湿迟滞 (Low-Side)&#xa;开: &lt; H-5%&#xa;关: ≥ H-2%" vertex="1">
+          <mxGeometry height="70" width="150" x="69" y="477" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-13" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="土湿迟滞 (Low-Side)&#xa;开: &lt; S-5%&#xa;关: ≥ S-2%" vertex="1">
+          <mxGeometry height="70" width="150" x="300" y="477" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-15" parent="1" style="ellipse;aspect=fixed;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="OR gate" vertex="1">
+          <mxGeometry height="50" width="50" x="420" y="317" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-17" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="通风风扇&#xa;1200~4500 RPM" vertex="1">
+          <mxGeometry height="50" width="149" x="548" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-18" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="加湿器&#xa;开关" vertex="1">
+          <mxGeometry height="50" width="99" x="172.5" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-19" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="水泵&#xa;开关" vertex="1">
+          <mxGeometry height="50" width="80" x="302.5" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-20" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="LED补光灯&#xa;PWM 8~100%" vertex="1">
+          <mxGeometry height="50" width="100" x="422.5" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-21" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="写入 GLOBAL_STATE.target" vertex="1">
+          <mxGeometry height="30" width="250" x="297.5" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-26" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;exitX=0.67;exitY=0;entryX=0;entryY=0.5;rounded=0;" target="fev6nb98AUKDlTF_Mf9f-9" value="No (手动/停止)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-28" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;exitX=0.75;exitY=0;entryX=0;entryY=0.5;rounded=0;" target="fev6nb98AUKDlTF_Mf9f-10" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-30" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.471;entryY=0.028;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="fev6nb98AUKDlTF_Mf9f-12" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-31" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0;entryY=0.5;rounded=0;exitDx=0;exitDy=0;" target="fev6nb98AUKDlTF_Mf9f-13" value="Yes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-32" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;entryX=0;entryY=0.5;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="fev6nb98AUKDlTF_Mf9f-14" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="460" />
+              <mxPoint x="510" y="460" />
+            </Array>
+            <mxPoint x="140" y="420" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-33" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-10" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.01;entryY=0.17;rounded=0;" target="fev6nb98AUKDlTF_Mf9f-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-34" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-11" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.01;entryY=0.84;rounded=0;" target="fev6nb98AUKDlTF_Mf9f-15" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-35" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-15" style="curved=1;startArrow=none;endArrow=block;exitX=1.01;exitY=0.51;entryX=0;entryY=0.5;rounded=0;" target="fev6nb98AUKDlTF_Mf9f-16" value="触发开启">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-36" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-16" style="curved=1;startArrow=none;endArrow=block;exitX=0.75;exitY=1;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-17" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-37" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-12" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-18" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-38" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-13" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.451;entryY=0.019;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="fev6nb98AUKDlTF_Mf9f-19" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-39" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-14" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.5;entryY=0;rounded=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-20" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-40" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-17" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-41" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-18" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-42" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-19" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;entryDx=0;entryDy=0;exitDx=0;exitDy=0;" target="fev6nb98AUKDlTF_Mf9f-21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-43" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-20" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;entryDx=0;entryDy=0;exitDx=0;exitDy=0;" target="fev6nb98AUKDlTF_Mf9f-21" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-46" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-8" style="curved=1;startArrow=none;endArrow=block;entryX=0;entryY=0.5;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="fev6nb98AUKDlTF_Mf9f-11" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="135" y="420" as="sourcePoint" />
+            <mxPoint x="780" y="262" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-54" connectable="0" parent="fev6nb98AUKDlTF_Mf9f-46" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Yes" vertex="1">
+          <mxGeometry relative="1" x="0.0335" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-11" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="空湿迟滞 (High-Side)&#xa;开: &gt; H+8%&#xa;关: ≤ H+3%" vertex="1">
+          <mxGeometry height="80" width="149" x="249" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-10" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="迟滞控制 (High-Side)&#xa;开: &gt; T+1.0°C&#xa;关: ≤ T+0.3°C" vertex="1">
+          <mxGeometry height="80" width="150" x="249" y="257" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-16" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="转速计算&#xa;RPM = 1200+3300×max(T_Ratio, H_Ratio)&#xa;T_Ratio=(Temp-Target)/8 [截断0,1]&#xa;H_Ratio=(Humi-Target)/30 [截断0,1]" vertex="1">
+          <mxGeometry height="90" width="251" x="529" y="297" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-14" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="比例+步进控制&#xa;deficit = 目标-当前&#xa;PWM = deficit/目标×100%&#xa;每次±1步, ≥8%" vertex="1">
+          <mxGeometry height="90" width="200" x="540" y="467" as="geometry" />
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-53" edge="1" parent="1" source="fev6nb98AUKDlTF_Mf9f-3" style="curved=1;startArrow=none;endArrow=block;exitX=0.492;exitY=1.014;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;exitPerimeter=0;entryDx=0;entryDy=0;" target="fev6nb98AUKDlTF_Mf9f-8" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="170" />
+            </Array>
+            <mxPoint x="770" y="125" as="sourcePoint" />
+            <mxPoint x="103" y="478" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fev6nb98AUKDlTF_Mf9f-9" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="跳过本轮: 强制输出全零" vertex="1">
+          <mxGeometry height="30" width="231" x="219" y="217" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,113 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="ZGcHWRmZ9yj9WvLtI2av">
+    <mxGraphModel dx="1373" dy="857" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ov2teE97EDahF46MNiql-57" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="通信层 (Communication Layer - Layer 5)" vertex="1">
+          <mxGeometry height="350.5" width="230.5" x="19.5" y="399.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-58" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="执行器任务 (Actuator Tasks - Layer 4)" vertex="1">
+          <mxGeometry height="540" width="230" x="580" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-59" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="控制逻辑任务 (Control Task - Layer 3)" vertex="1">
+          <mxGeometry height="180" width="220" x="580" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-60" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="传感器任务 (Sensor Tasks - Layer 2)" vertex="1">
+          <mxGeometry height="380" width="230" x="20" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-69" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="sht30_task [1s]&#xa;逻辑: I2C2阻塞读, &#xa;3次失败标记None&#xa;硬件: I2C2 100kHz (PB10/PB11) &#xa;+ 互斥锁" vertex="1">
+          <mxGeometry height="100" width="200" x="35" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-72" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ventilation_fan_task (反馈) [100ms]&#xa;逻辑: 读取风扇当前转速&#xa;硬件: TIM3 QEI Encoder (PC6/PC7)" vertex="1">
+          <mxGeometry height="60" width="200" x="35" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-73" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="dispatcher_task [500ms]&#xa;读 Current 和 Target 数据&#xa;逻辑: &#xa;迟滞控制: &#xa;风扇(+1.0C ON/-0.3C OFF), &#xa;加湿器/水泵(低侧开启), &#xa;补光灯(比例)&#xa;写 Actuator 目标值 &#xa;和 手动模式跳过计算" vertex="1">
+          <mxGeometry height="140" width="190" x="595" y="599.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-74" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="ventilation_fan_task (控制) [100ms]&#xa;逻辑: 闭环PID控制转速&#xa; (Kp=2.0, Ki=0.5, Kd=0.0)&#xa;硬件: TIM1_CH1 20kHz PWM(PE9)&#xa; + 方向控制(PE10/11)" vertex="1">
+          <mxGeometry height="100" width="200" x="595" y="429.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-75" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="fill_light_task [50ms]&#xa;逻辑: &#xa;RGB比例缩放输出, 数据变化才刷新&#xa;硬件: &#xa;TIM4_CH1(800kHz) + TIM5_CH2 DMA(PD12);WS2812B" vertex="1">
+          <mxGeometry height="100" width="200" x="595" y="306" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-76" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="mg995_task [事件驱动+50ms]&#xa;逻辑: 1.5s物理防抖闭锁 &#xa;(0°=500μs, 90°=1100μs)&#xa;硬件: TIM5_CH2 50Hz PWM(PA1)" vertex="1">
+          <mxGeometry height="80" width="200" x="595" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-77" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="water_pump_task [100ms]&#xa;逻辑: 边沿检测继电器输出&#xa;硬件: GPIO PD13" vertex="1">
+          <mxGeometry height="60" width="180" x="605" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-78" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="humidifier_task [100ms]&#xa;逻辑: 边沿检测继电器输出&#xa;硬件: GPIO PE4" vertex="1">
+          <mxGeometry height="60" width="180" x="605" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-79" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="can_rx_task [中断驱动]&#xa;逻辑: 11-bit帧路由/功能码过滤&#xa; (Write 0x2/TimeSync)&#xa;解码17+参数索引" vertex="1">
+          <mxGeometry height="80" width="200" x="31.5" y="659.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-80" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="can_tx_task [1s]&#xa;f32;u32缩放打包, 优先级调度&#xa;(Error优先, 模拟量次之, 数字量最后)" vertex="1">
+          <mxGeometry height="60" width="200" x="31.5" y="429.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-81" parent="1" style="ellipse;aspect=fixed;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="CAN BUS&#xa;1Mbps (PB8/PB9)&#xa;TJA1051T" vertex="1">
+          <mxGeometry height="100" width="100" x="81.5" y="529.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-83" edge="1" parent="1" source="ov2teE97EDahF46MNiql-65" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;entryDx=0;entryDy=0;" target="ov2teE97EDahF46MNiql-61" value="初始化资源">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-98" edge="1" parent="1" source="ov2teE97EDahF46MNiql-81" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ov2teE97EDahF46MNiql-79" value="CAN RX">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-99" edge="1" parent="1" source="ov2teE97EDahF46MNiql-80" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ov2teE97EDahF46MNiql-81" value="CAN TX">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-101" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="130" width="230" x="303" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-63" parent="ov2teE97EDahF46MNiql-101" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="系统初始化 (main.rs Initialization)" vertex="1">
+          <mxGeometry height="130" width="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-64" parent="ov2teE97EDahF46MNiql-101" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="HSE 8MHz -&gt; PLL -&gt; 168MHz" vertex="1">
+          <mxGeometry height="30" width="180" x="25" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-65" parent="ov2teE97EDahF46MNiql-101" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Spawner::spawn -&gt; 11 async tasks" vertex="1">
+          <mxGeometry height="30" width="200" x="15" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-82" edge="1" parent="ov2teE97EDahF46MNiql-101" source="ov2teE97EDahF46MNiql-64" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="ov2teE97EDahF46MNiql-65" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-61" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;container=0;" value="核心数据总线 (Layer 1)" vertex="1">
+          <mxGeometry height="390" width="300" x="264" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-66" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);container=0;" value="GLOBAL_STATE&#xa;Mutex&lt;CriticalSectionRawMutex, SystemState&gt;" vertex="1">
+          <mxGeometry height="60" width="270" x="275.5" y="306" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-100" edge="1" parent="1" source="ov2teE97EDahF46MNiql-66" style="curved=1;startArrow=none;endArrow=none;rounded=0;" target="ov2teE97EDahF46MNiql-62" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-62" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;container=0;" value="状态结构体" vertex="1">
+          <mxGeometry height="270" width="271" x="277" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-67" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);container=0;" value="[CurrentValues]&#xa;temperature, humidity_air, humidity_soil,&#xa;light_intensity, fan_speed_rpm, co2_level,&#xa;soil_ph, soil_ec, water_level, system_uptime,&#xa;error_code" vertex="1">
+          <mxGeometry height="80" width="250" x="286" y="406" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-68" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);container=0;" value="[TargetValues]&#xa;control_mode, target_temperature/humidity/light,&#xa;soil/light/co2/fan_rpm/ph/ec/water_level limits,&#xa;actuators: humidifier, &#xa;ventilation_fan, sunshade_motor,&#xa;light_color_rgb, light_pwm_duty, pid_p/i/d" vertex="1">
+          <mxGeometry height="130" width="249" x="286" y="506" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-70" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="bh1750_task [1s]&#xa;逻辑: I2C2阻塞读, 3次失败标记None&#xa;硬件: 共享 I2C2" vertex="1">
+          <mxGeometry height="60" width="200" x="35" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ov2teE97EDahF46MNiql-71" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="soil_moisture_task [1s]&#xa;逻辑: 阻塞读取土壤湿度&#xa;硬件: ADC1 12-bit (PC1)" vertex="1">
+          <mxGeometry height="60" width="201" x="34" y="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

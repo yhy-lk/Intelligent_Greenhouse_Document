@@ -1,0 +1,109 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="JEXUpueYIGs31rDTBkHZ">
+    <mxGraphModel dx="981" dy="612" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="内层 PID 转速伺服 (10 Hz 周期 / 100 ms)" vertex="1">
+          <mxGeometry height="260" width="750" x="40" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);verticalAlign=top;" value="外层调度器 (2 Hz 周期 / 500 ms)" vertex="1">
+          <mxGeometry height="160" width="750" x="39" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-3" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="SHT30 温湿度传感器&#xa;(I2C 地址 0x44)" vertex="1">
+          <mxGeometry height="60" width="150" x="49" y="136" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="迟滞判断&#xa;高侧迟滞：&#xa;温度超目标 1.0°C 开启，低于 0.3°C 关闭&#xa;湿度超目标 8%RH 开启，低于 3%RH 关闭" vertex="1">
+          <mxGeometry height="100" width="250" x="269" y="117" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-5" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="比例映射&#xa;将温湿度偏差线性映射为&#xa;1200 ~ 4500 RPM 目标转速" vertex="1">
+          <mxGeometry height="80" width="180" x="599" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-6" parent="1" style="rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);direction=west;" value="目标转速&#xa;(1200 ~ 4500 RPM)" vertex="1">
+          <mxGeometry height="50" width="150" x="339" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-7" parent="1" style="rhombus;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="+ / -" vertex="1">
+          <mxGeometry height="50" width="49" x="80" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-8" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="PID 控制器&#xa;Kp·e(k) = 2.0 × e(k)&#xa;Ki·Σe·Δt = 0.5 × Σe × 0.1&#xa;Kd·Δe/Δt = 0.0&#xa;积分限幅 ≤ 5 × max_duty&#xa;输出限幅 ≤ max_duty" vertex="1">
+          <mxGeometry height="120" width="150" x="189" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-9" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="TIM1 CH1 (PE9)&#xa;20 kHz 频率&#xa;方向控制 GPIO PE10/PE11" vertex="1">
+          <mxGeometry height="80" width="160" x="430" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-10" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="TB6612&#xa;H 桥驱动" vertex="1">
+          <mxGeometry height="60" width="100" x="660" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-11" parent="1" style="ellipse;aspect=fixed;strokeWidth=2;whiteSpace=wrap;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);direction=west;" value="直流有刷风扇&#xa;(M)" vertex="1">
+          <mxGeometry height="100" width="100" x="660" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-13" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="转速计算&#xa;(Δticks × 60) / (256 × Δt)" vertex="1">
+          <mxGeometry height="60" width="150" x="189" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-14" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-3" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="IMJ-DLziXMI1b8A3nJ4t-4" value="环境数据">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-15" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-4" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="IMJ-DLziXMI1b8A3nJ4t-5" value="触发条件">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-16" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-6" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.49;entryX=0.5;entryY=0;rounded=0;entryDx=0;entryDy=0;" target="IMJ-DLziXMI1b8A3nJ4t-7" value="+">
+          <mxGeometry relative="1" x="-0.1482" y="53" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="40" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-17" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-7" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;exitDx=0;exitDy=0;" target="IMJ-DLziXMI1b8A3nJ4t-8" value="偏差 e(k)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-18" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-8" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="IMJ-DLziXMI1b8A3nJ4t-9" value="占空比输出">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-19" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-9" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="IMJ-DLziXMI1b8A3nJ4t-10" value="驱动信号">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-20" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-10" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=1;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="IMJ-DLziXMI1b8A3nJ4t-11" value="功率输出">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-21" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-11" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="IMJ-DLziXMI1b8A3nJ4t-12" value="物理转动">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-22" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-12" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=1;entryY=0.5;rounded=0;entryDx=0;entryDy=0;" target="IMJ-DLziXMI1b8A3nJ4t-13" value="计数值 Δticks">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-23" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-13" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0;exitY=0.5;entryX=0.5;entryY=1;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" target="IMJ-DLziXMI1b8A3nJ4t-7" value="实际转速 (-)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-24" edge="1" parent="1" source="IMJ-DLziXMI1b8A3nJ4t-5" style="curved=1;startArrow=none;endArrow=block;strokeWidth=3;entryX=0;entryY=0.49;rounded=0;exitX=0.531;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" target="IMJ-DLziXMI1b8A3nJ4t-6" value="target_rpm">
+          <mxGeometry relative="1" x="0.0046" y="-27" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="695" y="320" />
+            </Array>
+            <mxPoint x="690" y="210" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IMJ-DLziXMI1b8A3nJ4t-12" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);direction=west;" value="TIM3 QEI (PC6/PC7)&#xa;64 tick/rev × 4 倍频&#xa;= 256 脉冲/转" vertex="1">
+          <mxGeometry height="80" width="150" x="435" y="515" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
