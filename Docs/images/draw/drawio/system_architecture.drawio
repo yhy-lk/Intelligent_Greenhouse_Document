@@ -1,19 +1,158 @@
 <mxfile host="Electron">
   <diagram name="第 1 页" id="_FE8UTg1-Lo2eKq9ksEF">
-    <mxGraphModel dx="1030" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="2060" dy="1286" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="1jU56GNzao4DQGIf1V_X-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);fontSize=20;" value="ESP32-S3 主节点&#xa;GUI / 语音 / WiFi / AI 推理 / 状态管理" vertex="1">
-          <mxGeometry height="100" width="800" x="20" y="20" as="geometry" />
+        <mxCell id="1jU56GNzao4DQGIf1V_X-52" edge="1" parent="1" source="1jU56GNzao4DQGIf1V_X-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="200" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="1jU56GNzao4DQGIf1V_X-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);fontSize=20;" value="STM32F407 从节点 ×N&#xa;传感器采集 / 迟滞调度 / PID / 执行器驱动" vertex="1">
-          <mxGeometry height="100" width="800" x="20" y="180" as="geometry" />
+        <mxCell id="1jU56GNzao4DQGIf1V_X-4" parent="1" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="三、 参数索引词典 (Index 映射)" vertex="1">
+          <mxGeometry height="876" width="760" x="20" y="574" as="geometry" />
         </mxCell>
-        <mxCell id="1jU56GNzao4DQGIf1V_X-3" edge="1" parent="1" source="1jU56GNzao4DQGIf1V_X-1" style="curved=1;startArrow=block;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=15;" target="1jU56GNzao4DQGIf1V_X-2" value="CAN 总线 1Mbps">
+        <mxCell id="1jU56GNzao4DQGIf1V_X-5" parent="1jU56GNzao4DQGIf1V_X-4" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="高级控制 (0x50-0x5F)" vertex="1">
+          <mxGeometry height="171.72687224669605" width="366.6317365269461" x="199.10179640718562" y="41.48458149779736" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-6" parent="1jU56GNzao4DQGIf1V_X-5" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x50 RGB (灯色, 0xRRGGBB)" vertex="1">
+          <mxGeometry height="75.2511013215859" width="73.95209580838323" x="12.230538922155688" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-7" parent="1jU56GNzao4DQGIf1V_X-5" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x51 PWM (占空比, 0-100)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="70.25449101796407" x="100.40419161676647" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-8" parent="1jU56GNzao4DQGIf1V_X-5" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x52 Kp (P参数)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="49.49101796407186" x="184.8802395209581" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-9" parent="1jU56GNzao4DQGIf1V_X-5" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x53 Ki (I参数)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="46.64670658682635" x="248.30838323353296" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-10" parent="1jU56GNzao4DQGIf1V_X-5" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x54 Kd (D参数)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="49.775449101796404" x="309.4610778443114" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-11" parent="1jU56GNzao4DQGIf1V_X-4" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="传感器 (0x30-0x4F)" vertex="1">
+          <mxGeometry height="171.72687224669605" width="738.6676646706587" x="13.08383233532934" y="261.44933920704847" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-12" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x30 Temp (温度, ×100)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="65.13473053892216" x="12.230538922155688" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-13" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x31 HumAir (空气湿度, ×100)" vertex="1">
+          <mxGeometry height="75.2511013215859" width="73.95209580838323" x="91.58682634730539" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-14" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x32 HumSoil (土壤湿度, ×100)" vertex="1">
+          <mxGeometry height="75.2511013215859" width="73.95209580838323" x="179.76047904191617" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-15" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x33 Light (光照强度)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="60.86826347305389" x="267.9341317365269" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-16" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x34 CO2 (CO2浓度)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="58.02395209580839" x="343.0239520958084" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-17" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x35 FanSpd (风扇转速)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="65.41916167664671" x="415.26946107784426" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-18" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x36 SoilPH (土壤pH, ×100)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="72.52994011976047" x="494.9101796407186" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-19" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x37 SoilEC (土壤电导率)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="67.6946107784431" x="581.6616766467066" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-20" parent="1jU56GNzao4DQGIf1V_X-11" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x38 WaterLv (水箱液位)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="67.41017964071855" x="663.5778443113772" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-21" parent="1jU56GNzao4DQGIf1V_X-4" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="开关执行器 (0x10-0x2F)" vertex="1">
+          <mxGeometry height="148.5726872246696" width="558.622754491018" x="102.96407185628742" y="481.41409691629957" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-22" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x10 LightMain (主照明)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="65.70359281437125" x="12.230538922155688" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-23" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x11 WaterPump (水泵)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="65.13473053892216" x="92.1556886227545" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-24" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x12 Humidifier (加湿器)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="67.97904191616767" x="171.5119760479042" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-25" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x13 Fan (通风风扇)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="58.02395209580839" x="253.7125748502994" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-26" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x14 Sunshade (遮阳电机)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="69.68562874251498" x="325.9580838323353" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-27" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x15 Heater (加热器)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="60.014970059880234" x="409.8652694610779" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-28" parent="1jU56GNzao4DQGIf1V_X-21" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x16 Window (开窗推杆)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="66.84131736526946" x="484.10179640718565" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-29" parent="1jU56GNzao4DQGIf1V_X-4" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="系统级 (0x00-0x0F)" vertex="1">
+          <mxGeometry height="171.72687224669605" width="333.92215568862275" x="215.31437125748502" y="678.2246696035243" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-30" parent="1jU56GNzao4DQGIf1V_X-29" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x00 Timestamp (时间戳)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="68.54790419161677" x="12.230538922155688" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-31" parent="1jU56GNzao4DQGIf1V_X-29" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x01 Heartbeat (心跳)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="62.29041916167665" x="95" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-32" parent="1jU56GNzao4DQGIf1V_X-29" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x02 ErrorCode (错误码)" vertex="1">
+          <mxGeometry height="52.096916299559474" width="66.55688622754491" x="171.5119760479042" y="67.53303964757708" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-33" parent="1jU56GNzao4DQGIf1V_X-29" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x03 ControlMode (控制模式)" vertex="1">
+          <mxGeometry height="75.2511013215859" width="73.95209580838323" x="252.29041916167665" y="55.95594713656388" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-34" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="CAN 总线通信协议定义" vertex="1">
+          <mxGeometry height="1232" width="1934" x="2727" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-35" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="二、 8字节数据配布 (Payload)" vertex="1">
+          <mxGeometry height="1182" width="622" x="2747" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-36" parent="1" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="一、 CAN ID 结构 (11-bit)" vertex="1">
+          <mxGeometry height="376" width="1223" x="3404" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-37" parent="1jU56GNzao4DQGIf1V_X-36" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="功能码 (func_code) 定义" vertex="1">
+          <mxGeometry height="154" width="813" x="381" y="43" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-38" parent="1jU56GNzao4DQGIf1V_X-37" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x0: Alert" vertex="1">
+          <mxGeometry height="54" width="130" x="43" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-39" parent="1jU56GNzao4DQGIf1V_X-37" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x1: TimeSync" vertex="1">
+          <mxGeometry height="54" width="163" x="223" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-40" parent="1jU56GNzao4DQGIf1V_X-37" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x2: WriteSet" vertex="1">
+          <mxGeometry height="54" width="157" x="436" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-41" parent="1jU56GNzao4DQGIf1V_X-37" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="0x3: Report" vertex="1">
+          <mxGeometry height="54" width="143" x="643" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-42" parent="1jU56GNzao4DQGIf1V_X-36" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Bit 10-7: func_code (功能码, 4-bit)&#xa;            Bit 6-0: node_id (节点ID, 7-bit)" vertex="1">
+          <mxGeometry height="126" width="260" x="46" y="57" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-43" parent="1jU56GNzao4DQGIf1V_X-36" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="计算公式:&#xa;            CAN_ID = (func_code &amp;lt;&amp;lt; 7) | node_id" vertex="1">
+          <mxGeometry height="102" width="260" x="657" y="247" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-44" edge="1" parent="1jU56GNzao4DQGIf1V_X-36" source="1jU56GNzao4DQGIf1V_X-42" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" target="1jU56GNzao4DQGIf1V_X-37" value="">
           <mxGeometry relative="1" as="geometry">
             <Array as="points" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-45" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Byte 0&#xa;            index: 参数索引 (uint8_t)" vertex="1">
+          <mxGeometry height="78" width="242" x="2782" y="374" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-46" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Byte 1 - Byte 3&#xa;            R: 保留区 (0x00)" vertex="1">
+          <mxGeometry height="78" width="178" x="2814" y="989" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-47" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="Byte 4 - Byte 7&#xa;            value: 数据值 (V[0]-V[3], uint32_t, 小端序)" vertex="1">
+          <mxGeometry height="126" width="260" x="3074" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-48" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);" value="数据处理说明:&#xa;            温度/湿度/pH 等浮点量采用 ×100 缩放为整数后存入 value 字段，&#xa;            其余参数以原始值直接存入。" vertex="1">
+          <mxGeometry height="174" width="260" x="3074" y="941" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-49" edge="1" parent="1" source="1jU56GNzao4DQGIf1V_X-47" style="curved=1;startArrow=none;endArrow=none;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" target="1jU56GNzao4DQGIf1V_X-48" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-50" edge="1" parent="1" source="1jU56GNzao4DQGIf1V_X-45" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.02;rounded=0;" target="1jU56GNzao4DQGIf1V_X-4" value="索引值 (Index) 决定具体数据含义">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
