@@ -30,6 +30,8 @@ $files = @(
 )
 
 pandoc $files `
+    --metadata-file=metadata.yaml `
+    --filter pandoc-crossref `
     --citeproc `
     --bibliography=../references.bib `
     --csl=../csl/china-national-standard-gb-t-7714-2015-numeric.csl `

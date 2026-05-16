@@ -68,9 +68,6 @@ $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 图 2-4 STM32 从节点分层软件架构
 :::
 
-::: {custom-style="图片"}
-![](../images/ai_generated/cropped/control_strategy.png)
-:::
 本系统设计了三种控制模式，逻辑关系如图 2-5 所示。
 
 ::: {custom-style="图片"}

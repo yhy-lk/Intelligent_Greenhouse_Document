@@ -1,0 +1,8 @@
+---
+link-citations: true
+chapters: true
+chaptersDepth: 1
+eqPrefix: "式"
+eqnIndexTemplate: "$$i$$"
+eqnRenderTemplate: "（$$i$$）"
+---
