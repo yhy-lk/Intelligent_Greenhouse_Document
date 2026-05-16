@@ -1,0 +1,142 @@
+@startuml
+!theme plain
+skinparam defaultFontName "Microsoft YaHei"
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam backgroundColor white
+skinparam monochrome true
+
+top to bottom direction
+
+' ====== 顶层：交互层 (ESP32-S3 主节点) ======
+package "交互层 (ESP32-S3 主节点)" as ESP32 {
+    component "触摸屏 GUI (LVGL)" as LVGL
+    component "麦克风语音助手 (INMP441)" as INMP441
+    component "WiFi 网络管理" as WIFI
+    component "AI 云端推理接口\n(调用 DeepSeek)" as AI
+    component "CAN 通信控制节点" as CAN_CTRL
+
+    LVGL --> CAN_CTRL
+    INMP441 --> CAN_CTRL
+    WIFI --> AI
+    AI --> CAN_CTRL
+}
+
+' ====== 控制模式（右侧独立，发送虚线指令） ======
+package "控制模式" as MODE {
+    component "手动控制" as MANUAL
+    component "自动控制" as AUTO
+    component "AI 领航" as AI_PILOT
+}
+
+MANUAL - - -> CAN_CTRL : <<指令>>
+AUTO - - -> CAN_CTRL : <<指令>>
+AI_PILOT - - -> CAN_CTRL : <<指令>>
+
+' ====== CAN 总线（含终端电阻与注释） ======
+rectangle "120Ω\n终端电阻" as TRM_L
+node "CAN 总线 (1 Mbps)" as CAN_BUS
+rectangle "120Ω\n终端电阻" as TRM_R
+
+note right of CAN_BUS
+  数据上报
+  命令下发
+  异常告警
+  时间同步
+end note
+
+CAN_CTRL <--> CAN_BUS
+TRM_L --- CAN_BUS
+TRM_R --- CAN_BUS
+
+' ====== 底层：STM32F407 从节点 #1 ======
+package "STM32F407 从节点 #1" as STM32_1 {
+    package "传感器组" as SENS_1 {
+        component "温湿度传感器\n(SHT30)" as SHT30_1
+        component "光照传感器\n(BH1750)" as BH1750_1
+        component "土壤湿度传感器\n(ADC)" as SOIL_1
+    }
+
+    component "迟滞调度器" as SCHED_1
+
+    package "执行器组" as ACT_1 {
+        component "通风风扇\n(TB6612)" as FAN_1
+        component "水泵\n(继电器)" as PUMP_1
+        component "加湿器\n(继电器)" as HUM_1
+        component "补光灯\n(WS2812B)" as LIGHT_1
+        component "遮阳舵机\n(MG995)" as SHADE_1
+    }
+
+    SHT30_1 --> SCHED_1
+    BH1750_1 --> SCHED_1
+    SOIL_1 --> SCHED_1
+    SCHED_1 --> FAN_1
+    SCHED_1 --> PUMP_1
+    SCHED_1 --> HUM_1
+    SCHED_1 --> LIGHT_1
+    SCHED_1 --> SHADE_1
+}
+
+STM32_1 <--> CAN_BUS
+
+' ====== 底层：STM32F407 从节点 #2 ======
+package "STM32F407 从节点 #2" as STM32_2 {
+    package "传感器组" as SENS_2 {
+        component "温湿度传感器\n(SHT30)" as SHT30_2
+        component "光照传感器\n(BH1750)" as BH1750_2
+        component "土壤湿度传感器\n(ADC)" as SOIL_2
+    }
+
+    component "迟滞调度器" as SCHED_2
+
+    package "执行器组" as ACT_2 {
+        component "通风风扇\n(TB6612)" as FAN_2
+        component "水泵\n(继电器)" as PUMP_2
+        component "加湿器\n(继电器)" as HUM_2
+        component "补光灯\n(WS2812B)" as LIGHT_2
+        component "遮阳舵机\n(MG995)" as SHADE_2
+    }
+
+    SHT30_2 --> SCHED_2
+    BH1750_2 --> SCHED_2
+    SOIL_2 --> SCHED_2
+    SCHED_2 --> FAN_2
+    SCHED_2 --> PUMP_2
+    SCHED_2 --> HUM_2
+    SCHED_2 --> LIGHT_2
+    SCHED_2 --> SHADE_2
+}
+
+STM32_2 <--> CAN_BUS
+
+' ====== 底层：STM32F407 从节点 #3 ======
+package "STM32F407 从节点 #3" as STM32_3 {
+    package "传感器组" as SENS_3 {
+        component "温湿度传感器\n(SHT30)" as SHT30_3
+        component "光照传感器\n(BH1750)" as BH1750_3
+        component "土壤湿度传感器\n(ADC)" as SOIL_3
+    }
+
+    component "迟滞调度器" as SCHED_3
+
+    package "执行器组" as ACT_3 {
+        component "通风风扇\n(TB6612)" as FAN_3
+        component "水泵\n(继电器)" as PUMP_3
+        component "加湿器\n(继电器)" as HUM_3
+        component "补光灯\n(WS2812B)" as LIGHT_3
+        component "遮阳舵机\n(MG995)" as SHADE_3
+    }
+
+    SHT30_3 --> SCHED_3
+    BH1750_3 --> SCHED_3
+    SOIL_3 --> SCHED_3
+    SCHED_3 --> FAN_3
+    SCHED_3 --> PUMP_3
+    SCHED_3 --> HUM_3
+    SCHED_3 --> LIGHT_3
+    SCHED_3 --> SHADE_3
+}
+
+STM32_3 <--> CAN_BUS
+
+@enduml

@@ -1,0 +1,21 @@
+<mxfile host="Electron">
+  <diagram name="第 1 页" id="_FE8UTg1-Lo2eKq9ksEF">
+    <mxGraphModel dx="1030" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1jU56GNzao4DQGIf1V_X-1" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);fontSize=20;" value="ESP32-S3 主节点&#xa;GUI / 语音 / WiFi / AI 推理 / 状态管理" vertex="1">
+          <mxGeometry height="100" width="800" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-2" parent="1" style="whiteSpace=wrap;strokeWidth=2;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#999999,#cccccc);fontColor=light-dark(#333333,#cccccc);fontSize=20;" value="STM32F407 从节点 ×N&#xa;传感器采集 / 迟滞调度 / PID / 执行器驱动" vertex="1">
+          <mxGeometry height="100" width="800" x="20" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="1jU56GNzao4DQGIf1V_X-3" edge="1" parent="1" source="1jU56GNzao4DQGIf1V_X-1" style="curved=1;startArrow=block;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;fontSize=15;" target="1jU56GNzao4DQGIf1V_X-2" value="CAN 总线 1Mbps">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

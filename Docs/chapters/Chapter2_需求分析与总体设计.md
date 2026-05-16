@@ -27,7 +27,7 @@
 为解决传统单 MCU 架构在扩展性与实时性方面的不足，本系统采用"ESP32-S3 主节点 + 多个 STM32F407 从节点"的分布式多节点架构，将系统功能划分为交互层与控制层两个层次，通过 CAN 总线实现跨节点的数据交换与协调控制。系统总体架构如图 2-1 所示。
 
 ::: {custom-style="图片"}
-![](../images/ai_generated/cropped/system_architecture.png)
+![](../images/draw/png/system_architecture.drawio.png)
 :::
 ::: {custom-style="表题"}
 图 2-1 分布式多节点系统总体架构
@@ -41,14 +41,48 @@
 
 $$\text{CAN\_ID} = (\text{func\_code} \ll 7) \, | \, \text{node\_id}$$
 
-其中 $\text{func\_code}$ 为 4-bit 功能码，$\text{node\_id}$ 为 7-bit 节点地址。功能码定义 4 类报文：Alert（0x0，异常告警）、TimeSync（0x1，时间同步）、WriteSet（0x2，参数下发）、Report（0x3，数据上报），帧格式与参数字典如图 2-2 所示。数据帧载荷采用"1 字节索引 + 4 字节数据"格式，参数索引按系统级（0x00–0x0F）、开关执行器（0x10–0x2F）、传感器（0x30–0x4F）、高级控制（0x50–0x5F）四组划分，温度与湿度等浮点量采用 ×100 缩放传输，其余参数直接传输。
+其中 $\text{func\_code}$ 为 4-bit 功能码，$\text{node\_id}$ 为 7-bit 节点地址。功能码定义 4 类报文：Alert（0x0，异常告警）、TimeSync（0x1，时间同步）、WriteSet（0x2，参数下发）、Report（0x3，数据上报），帧格式与参数字典如表 2-1 和表 2-2 所示。数据帧载荷采用"1 字节索引 + 4 字节数据"格式，参数索引按系统级（0x00–0x0F）、开关执行器（0x10–0x2F）、传感器（0x30–0x4F）、高级控制（0x50–0x5F）四组划分，温度与湿度等浮点量采用 ×100 缩放传输，其余参数直接传输。
 
-::: {custom-style="图片"}
-![](../images/ai_generated/cropped/can_frame_format.png)
-:::
 ::: {custom-style="表题"}
-图 2-2 CAN 2.0A 帧格式与参数字典
+表 2-1 CAN 2.0A 帧格式
 :::
+
+| 字段 | 位置 | 长度 | 说明 |
+|:---|:---|:---|:---|
+| 功能码 | CAN ID Bit 10-7 | 4-bit | 0x0=Alert(告警), 0x1=TimeSync(同步), 0x2=WriteSet(下发), 0x3=Report(上报) |
+| 节点地址 | CAN ID Bit 6-0 | 7-bit | 节点 ID，取值范围 1–127 |
+| 参数索引 | Byte 0 | 1 字节 | 参数字典索引值（表 2-2） |
+| 保留 | Byte 1-3 | 3 字节 | 填充 0x00 |
+| 参数值 | Byte 4-7 | 4 字节 | 小端序 32 位整数，浮点量按缩放因子转换 |
+
+::: {custom-style="表题"}
+表 2-2 CAN 参数字典
+:::
+
+| 分组 | 索引值 | 参数名称 | 缩放因子 | 数据类型/单位 |
+|:---|:---|:---|:---|:---|
+| 系统级 | 0x00 | System Timestamp | ×1 | uint32，Unix 时间戳(s) |
+| | 0x01 | Heartbeat | ×1 | uint32，运行时间(s) |
+| | 0x02 | Error Code | ×1 | uint32，错误位掩码 |
+| | 0x03 | Control Mode | ×1 | 0=手动，1=自动 |
+| 开关执行器 | 0x10 | Light Main Power | ×1 | bool，主照明电源 |
+| | 0x11 | Water Pump | ×1 | bool，灌溉水泵 |
+| | 0x12 | Humidifier | ×1 | bool，加湿器 |
+| | 0x13 | Ventilation Fan | ×1 | bool，通风风扇 |
+| | 0x14 | Sunshade Motor | ×1 | bool，遮阳幕布电机 |
+| | 0x15 | Heater | ×1 | bool，加热器 |
+| | 0x16 | Window Actuator | ×1 | bool，开窗推杆电机 |
+| 传感器 | 0x30 | Temperature | ×100 | °C |
+| | 0x31 | Humidity(Air) | ×100 | % |
+| | 0x32 | Humidity(Soil) | ×100 | % |
+| | 0x33 | Light Intensity | ×1 | Lux |
+| | 0x34 | CO₂ Level | ×1 | ppm |
+| | 0x35 | Fan Speed | ×1 | RPM |
+| | 0x36 | Soil pH | ×100 | pH |
+| | 0x37 | Soil EC | ×1 | μS/cm |
+| | 0x38 | Water Level | ×1 | % |
+| 高级控制 | 0x50 | Light Color RGB | ×1 | 0x00RRGGBB |
+| | 0x51 | Light PWM Duty | ×1 | 0–100 |
 
 ### 2.2.3 分层软件架构
 
